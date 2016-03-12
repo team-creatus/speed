@@ -1,13 +1,10 @@
-export class Controller {
-  constructor($rootScope, $scope, %timeout) {
-    this.subscribe();
+'use strict';
+class MainController {
+  constructor() {
+    this.name = '';
   }
 
-  sub scribe() {
-    this.disposer = this.disposer || {};
-    this.disposer.store = store.addListener(this.storeChangeHandler.bind(this));
-    this.disposer.renderer = Renderer.addListener(this.storeChangeHandler.bind(this));
+  click() {
+    alert(this.name);
   }
-
 }
-
