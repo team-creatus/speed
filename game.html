@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
@@ -8,32 +8,22 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/speed.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/controller.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/speed.js"></script>
-    <script src="controller.js"></script>
-    <script src="app.js"></script>
-    <script src="js/jquery.blockUI.js"></script>
+    <style>body{background-image: url("img/grass-pattern-set/grass01.jpg");}</style>
   </head>
-  <body ng-app="myApp">
-  <br />
-  <br />
-    <div ng-controller="MainController as main">
-      <div id="container-a" class="container">
-        <div class="form-group">
-          <h1 id="name-msg" class="text-center">あなたの名前を入力してください。</h1>
-          <input type="text" class="input-lg form-control" placeholder="あなたの名前" ng-model="main.name">
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12 text-center">
-            <button class="btn-primary btn-lg" id="login">ログイン</button>
-          </div>
-        </div>
-      </div>
-      <div id="card-game" style="display: none; margin-top: 80px;">
-        <h1 id="opp-name" class="opp">
+  <body ng-app="speed">
+    <div ng-controller="gameController as gameController">
+      <div class="container">
+        <br />
+        <br />
+        <br />
+        <h1 class="opp"> 
           &ensp;田中太郎 <small>残り</small>99<small>枚</small>
         </h1>
+        <br />
         <br />
         <br />
         <br />
@@ -52,7 +42,7 @@
           <img id="c4" class="cards" alt="" src="img/trump/png/c11.png">
           <img id="c5" class="cards" alt="" src="img/trump/png/c12.png">
         </div>
-        <h1 id="usr-name" class="usr">{{main.name + " "}}<small>残り</small>99<small>枚</small></h1>
+        <h1 id="user-name" class="user">{{loginController.name + " "}}<small>残り</small>99<small>枚</small></h1>
       </div>
     </div>
   </body>

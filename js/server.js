@@ -5,9 +5,9 @@ var server = http.createServer(function(req, res) {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "text/plain"
   });
-  var st = new Date().getTime();
-  while (new Date().getTime() < st + 3000);
-  res.write('Hello World\n');
+  // var st = new Date().getTime();
+  // while (new Date().getTime() < st + 3000);
+  res.write('node js');
   res.end();
 });
 

@@ -33,43 +33,12 @@ html {
   background-color: #E3F0FB; /* 背景色 */ 
   border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
 }
-.usr {
+
+.user {
   margin-left: 40px;
   float: left;
   font-size: 16px;
   font-size: 1.6rem;
   background-color: #E3F0FB; /* 背景色 */ 
   border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
-}
-
-#container-a {
-  display: block;
-}
-
-#search-user {
-  display: none;
-}
-
-#loading {
-  opacity: 0.6;
-  padding: 15px;
-  zIndex: 1;
-/*
-  position: fixed;
-  top: 50%;
-  background-color: #FFF;
-  filter: alpha(opacity=85);
-  -moz-opacity: 0.85;
-  opacity:0.85;
-  */
-}
-
-#loading .loadingMsg {
-  zIndex: 1;
-  text-align: center;
-  padding-top: 100px;
-  width: 200px;
-  background-image: url("../img/loading.gif");
-  background-position: center top;
-  background-repeat: no-repeat;
 }
