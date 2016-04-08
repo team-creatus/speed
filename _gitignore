@@ -1,2 +1,4 @@
 *.DS_STORE
 Thumbs.db
+server.js
+
