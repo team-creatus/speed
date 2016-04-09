@@ -1,0 +1,44 @@
+.cards {
+  width: 12%;
+  height: 12%;
+}
+
+html {
+  font-size : 75%; 
+}
+
+@media screen and (min-width : 768px){
+  html{ font-size : 87.5%;} 
+}
+
+@media screen and (min-width : 1024px) {
+  html{ font-size : 100%}; 
+}
+
+#name-msg {
+  font-size: 18px;
+  font-size: 2rem;
+}
+
+#find-msg {
+  font-size: 14px;
+  font-size: 1rem;
+}
+
+.opp {
+  margin-right: 40px;
+  float: right;
+  font-size: 16px;
+  font-size: 1.6rem;
+  background-color: #E3F0FB; /* 背景色 */ 
+  border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
+}
+
+.user {
+  margin-left: 40px;
+  float: left;
+  font-size: 16px;
+  font-size: 1.6rem;
+  background-color: #E3F0FB; /* 背景色 */ 
+  border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
+}
