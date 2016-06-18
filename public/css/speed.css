@@ -1,44 +1,74 @@
-.cards {
-  width: 12%;
-  height: 12%;
+body {
+  background-image: url('../img/grass01.jpg');
 }
 
-html {
-  font-size : 75%; 
+.field {
+  border: solid;
+  height: 109px;
+  width: 73px;
+  margin: 480px 0 0 550px;
+  position: absolute;
 }
 
-@media screen and (min-width : 768px){
-  html{ font-size : 87.5%;} 
+.card-field {
+  height: 108px;
+  width: 320px;
+  margin: 620px 0 0 350px;
+  position: absolute;
 }
 
-@media screen and (min-width : 1024px) {
-  html{ font-size : 100%}; 
+.card {
+  cursor: move;
+  height: 108px;
+  width: 72px;
 }
 
-#name-msg {
-  font-size: 18px;
-  font-size: 2rem;
+.droped {
+  height: 108px;
+  width: 72px;
 }
 
-#find-msg {
-  font-size: 14px;
-  font-size: 1rem;
+.dragging {
+  opacity: 0.4;
 }
 
-.opp {
-  margin-right: 40px;
-  float: right;
-  font-size: 16px;
-  font-size: 1.6rem;
-  background-color: #E3F0FB; /* 背景色 */ 
-  border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
-}
+.card-1 { position: absolute; }
+.card-2 { position: absolute; left: 82px; }
+.card-3 { position: absolute; left: 162px; }
+.card-4 { position: absolute; left: 242px; }
 
-.user {
-  margin-left: 40px;
-  float: left;
-  font-size: 16px;
-  font-size: 1.6rem;
-  background-color: #E3F0FB; /* 背景色 */ 
-  border: 5px #1C79C6 solid; /* 枠線（太さ・色・スタイル） */ 
+@media screen and (max-width:800px) {
+  .field {
+    background: red;
+    height: 58px;
+    width: 40px;
+    margin: 400px 0 0 216px;
+    position: absolute;
+  }
+
+  .card-field {
+    background: blue;
+    height: 58px;
+    width: 190px;
+    margin: 500px 0 0 90px;
+    position: absolute;
+  }
+
+  .card {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+    position: absolute;
+  }
+
+  .droped {
+    height: 58px;
+    width: 40px;
+    position: absolute;
+  }
+
+  .card-1 { position: absolute; }
+  .card-2 { position: absolute; left: 50px; }
+  .card-3 { position: absolute; left: 100px; }
+  .card-4 { position: absolute; left: 150px; }
 }
