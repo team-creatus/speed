@@ -1,0 +1,86 @@
+* GitHubとは
+ソースコードをGitで管理するWebサービス
+
+https://github.com/team-creatus/speed
+
+ユーザ名：team-creatus
+パスワード：LwfXb5He1zN48Ct
+
+
+* 事前作業
+** １．Git操作ツールのダウンロード
+https://git-scm.com/download/winから、32-bit Git for Windows Portable.または、64-bit Git for Windows Portable.をダウンロードして、実行する。
+
+** ２．ソースの配置場所を決める
+例として、C:\Users\User\Documents\team-creatus とする。
+
+** ３．ソースのクローン
+上記１．のgit-bash.exeを実行する。
+cdコマンドで上記２．の場所に移動する。（例：cd /c/Users/User/Documents/team-creatus/）
+Gitクローンコマンドを打つ
+
+git clone https://github.com/team-creatus/speed.git
+
+* Gitの使い方
+** GitHubから最新ソースを取得（プル）
+１．git-bash.exeを実行して、ソース配置場所のspeedフォルダにcdする。
+
+例：cd /c/Users/User/Documents/team-creatus/speed
+
+２．プルコマンドを実行する。
+
+git pull
+
+** GitHubにソースをアップロードする（プッシュ）
+１．git-bash.exeを実行して、ソース配置場所のspeedフォルダにcdする。
+
+例：cd /c/Users/User/Documents/team-creatus/speed
+
+２．プルをして最新ソースを取得する。
+
+git pull
+
+３．コミット対象ソースをインデックスに追加する。
+
+git add ファイル名
+
+４．コミット漏れが無いかの確認
+
+git status
+
+５．ローカルリポジトリにソースをコミットする。
+※-m の後はコミットコメントを入力する。
+
+git commit -m "コメント"
+
+６．コミット結果をGitHubに反映する（プッシュ）
+
+git push origin master
+
+※ユーザ、パスワードの入力を求められたら、最上部に記載したユーザパスワードを入力する。
+
+** その他の使い方
+*** ソースの差分表示
+修正前後の差分を表示する。
+
+git diff 比較したいファイル
+
+GitHubのサイトからソースの履歴を確認できる。
+https://github.com/team-creatus/speed
+
+
+
+cd /c/Users/User/Documents/openshift/nodejs
+
+password: p@ssw0rd
+
+git commit -a -m "シャッフルロジックの修正"
+
+
+
+git config user.name "Ryohei Sakata"
+
+git config user.email r-sakata@ite-center.com
+
+
+
