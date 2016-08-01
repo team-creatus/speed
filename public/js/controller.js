@@ -11,7 +11,7 @@ speed.config(function($routeProvider) {
 
 speed.factory('socket', ['$rootScope', function($rootScope) {
   var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
-  //var socket = io.connect("http://localhost:3000/");
+  //var socket = io.connect("http://192.168.33.10:3000/");
   return {
     on: function(eventName, callback) {
       socket.on(eventName, callback);

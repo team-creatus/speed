@@ -6,14 +6,14 @@ body {
   border: solid;
   height: 109px;
   width: 73px;
-  margin: 480px 0 0 550px;
+  margin: 180px 0 0 520px;
   position: absolute;
 }
 
 .card-field {
   height: 108px;
   width: 320px;
-  margin: 620px 0 0 350px;
+  margin: 320px 0 0 325px;
   position: absolute;
 }
 
@@ -32,25 +32,58 @@ body {
   opacity: 0.4;
 }
 
+.opp-card {
+  margin-top: 40px;
+}
+
+.status {
+  border: solid;
+  background: #fff;
+  height: 50px;
+  width: 200px;
+  margin: 450px 0 0 700px;
+}
+
+.opp-status {
+  border: solid;
+  background: #fff;
+  height: 50px;
+  width: 200px;
+  margin: 70px 0 0 100px;
+}
+
+.status-detail {
+  margin: 12px 0 0 40px;
+}
+
+.opp-status-detail {
+  margin: 12px 0 0 30px;
+}
+
 .card-1 { position: absolute; }
 .card-2 { position: absolute; left: 82px; }
 .card-3 { position: absolute; left: 162px; }
 .card-4 { position: absolute; left: 242px; }
 
+.opp-card-0 { position: absolute; left: 400px; margin-top: 180px; }
+.opp-card-1 { position: absolute; left: 355px; }
+.opp-card-2 { position: absolute; left: 435px; }
+.opp-card-3 { position: absolute; left: 515px; }
+.opp-card-4 { position: absolute; left: 595px; }
+
 @media screen and (max-width:800px) {
+
   .field {
-    background: red;
-    height: 58px;
-    width: 40px;
-    margin: 400px 0 0 216px;
+    height: 63px;
+    width: 46px;
+    margin: 125px 0 0 150px;
     position: absolute;
   }
 
   .card-field {
-    background: blue;
     height: 58px;
     width: 190px;
-    margin: 500px 0 0 90px;
+    margin: 230px 0 0 30px;
     position: absolute;
   }
 
@@ -61,14 +94,41 @@ body {
     position: absolute;
   }
 
+  .opp-card {
+    margin-top: 30px;
+  }
+
   .droped {
     height: 58px;
     width: 40px;
     position: absolute;
   }
 
+  .status {
+    background: #fff;
+    width: 210px;
+    margin: 320px 0 0 20px;
+  }
+
+  .opp-status {
+    background: #fff;
+    width: 210px;
+    margin: 30px 0 0 20px;
+  }
+
+  .opp-status-detail {
+    margin-left: 50px;
+  }
+
   .card-1 { position: absolute; }
   .card-2 { position: absolute; left: 50px; }
   .card-3 { position: absolute; left: 100px; }
   .card-4 { position: absolute; left: 150px; }
+
+  .opp-card-0 { position: absolute; left: 70px; margin-top: 130px; }
+  .opp-card-1 { position: absolute; left: 45px; }
+  .opp-card-2 { position: absolute; left: 95px; }
+  .opp-card-3 { position: absolute; left: 145px; }
+  .opp-card-4 { position: absolute; left: 195px; }
+
 }
