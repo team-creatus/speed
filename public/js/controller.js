@@ -10,26 +10,40 @@ speed.config(function($routeProvider) {
 });
 
 speed.factory('socket', ['$rootScope', function($rootScope) {
-  var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
-  //var socket = io.connect("http://192.168.33.10:3000/");
+ // var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
+  var socket = io.connect("http://localhost:3000");
   return {
-    on: function(eventName, callback) {
-      socket.on(eventName, callback);
-      console.log(eventName);
-    },
-    emit: function(eventName, data) {
-      socket.emit(eventName, data);
-      console.log(eventName);
-      console.log(data);
-    }
+	on: function (eventName, callback) {
+		socket.on(eventName, function () {
+			var args = arguments;
+			$rootScope.$apply(function () {
+				callback.apply(socket, args);
+			});
+		});
+	},
+	emit: function (eventName, data, callback) {
+		socket.emit(eventName, data, function () {
+			var args = arguments;
+			$rootScope.$apply(function () {
+				if (callback) {
+					callback.apply(socket, args);
+				}
+			});
+		});
+	}
   };
 }]);
 
 speed.controller('loginController', ['$location', 'socket', function($location, socket) {
   this.click = function() {
     socket.emit('login', this.name);
-    $location.path('/game');
   }
+
+  socket.on("wait",function(){});
+
+  socket.on("battle",function(){
+  	$location.path('/game');
+  });
 }]);
 
 speed.controller('gameController', ['socket', function(socket) {

@@ -21,12 +21,12 @@ app.get('/', function(req, res) {
 var waitPlayer = "0";
 
 // 部屋IDリスト
-var roomIdList;
+var roomIdList = [];
 
 // 一時部屋ID
 var tmpRoomId;
 
-io.on('connection', function(socket) {
+io.sockets.on('connection', function(socket) {
   console.log('a user connected');
 
   socket.on('login', function(data) {
@@ -53,7 +53,7 @@ io.on('connection', function(socket) {
 		// 部屋IDを生成
 		tmpRoomId = createRoomId();
 		socket.join(tmpRoomId);
-
+		
 		// 待機中処理を呼び出し
 		io.to(tmpRoomId).emit('wait');
 	}
@@ -71,7 +71,7 @@ function createRoomId(){
 	var roomId = Math.floor(Math.random() * 100);
 	
 	// 重複しないIDが生成されるまで繰り返し
-	while(roomIdList.indexOf(roomId) == -1){
+	while(roomIdList.indexOf(roomId) != -1){
 		roomId = Math.floor(Math.random() * 100);
 	}
 	
