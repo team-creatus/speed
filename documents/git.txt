@@ -1,71 +1,71 @@
-* GitHub‚Æ‚Í
-ƒ\[ƒXƒR[ƒh‚ğGit‚ÅŠÇ—‚·‚éWebƒT[ƒrƒX
+* GitHubã¨ã¯
+ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’Gitã§ç®¡ç†ã™ã‚‹Webã‚µãƒ¼ãƒ“ã‚¹
 
 https://github.com/team-creatus/speed
 
-ƒ†[ƒU–¼Fteam-creatus
-ƒpƒXƒ[ƒhFLwfXb5He1zN48Ct
+ãƒ¦ãƒ¼ã‚¶åï¼šteam-creatus
+ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼šLwfXb5He1zN48Ct
 
 
-* –‘Oì‹Æ
-** ‚PDGit‘€ìƒc[ƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh
-https://git-scm.com/download/win‚©‚çA32-bit Git for Windows Portable.‚Ü‚½‚ÍA64-bit Git for Windows Portable.‚ğƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄAÀs‚·‚éB
+* äº‹å‰ä½œæ¥­
+** ï¼‘ï¼Gitæ“ä½œãƒ„ãƒ¼ãƒ«ã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+https://git-scm.com/download/winã‹ã‚‰ã€32-bit Git for Windows Portable.ã¾ãŸã¯ã€64-bit Git for Windows Portable.ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ã€å®Ÿè¡Œã™ã‚‹ã€‚
 
-** ‚QDƒ\[ƒX‚Ì”z’uêŠ‚ğŒˆ‚ß‚é
-—á‚Æ‚µ‚ÄAC:\Users\User\Documents\team-creatus ‚Æ‚·‚éB
+** ï¼’ï¼ã‚½ãƒ¼ã‚¹ã®é…ç½®å ´æ‰€ã‚’æ±ºã‚ã‚‹
+ä¾‹ã¨ã—ã¦ã€C:\Users\User\Documents\team-creatus ã¨ã™ã‚‹ã€‚
 
-** ‚RDƒ\[ƒX‚ÌƒNƒ[ƒ“
-ã‹L‚PD‚Ìgit-bash.exe‚ğÀs‚·‚éB
-cdƒRƒ}ƒ“ƒh‚Åã‹L‚QD‚ÌêŠ‚ÉˆÚ“®‚·‚éBi—áFcd /c/Users/User/Documents/team-creatus/j
-GitƒNƒ[ƒ“ƒRƒ}ƒ“ƒh‚ğ‘Å‚Â
+** ï¼“ï¼ã‚½ãƒ¼ã‚¹ã®ã‚¯ãƒ­ãƒ¼ãƒ³
+ä¸Šè¨˜ï¼‘ï¼ã®git-bash.exeã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+cdã‚³ãƒãƒ³ãƒ‰ã§ä¸Šè¨˜ï¼’ï¼ã®å ´æ‰€ã«ç§»å‹•ã™ã‚‹ã€‚ï¼ˆä¾‹ï¼šcd /c/Users/User/Documents/team-creatus/ï¼‰
+Gitã‚¯ãƒ­ãƒ¼ãƒ³ã‚³ãƒãƒ³ãƒ‰ã‚’æ‰“ã¤
 
 git clone https://github.com/team-creatus/speed.git
 
-* Git‚Ìg‚¢•û
-** GitHub‚©‚çÅVƒ\[ƒX‚ğæ“¾iƒvƒ‹j
-‚PDgit-bash.exe‚ğÀs‚µ‚ÄAƒ\[ƒX”z’uêŠ‚ÌspeedƒtƒHƒ‹ƒ_‚Écd‚·‚éB
+* Gitã®ä½¿ã„æ–¹
+** GitHubã‹ã‚‰æœ€æ–°ã‚½ãƒ¼ã‚¹ã‚’å–å¾—ï¼ˆãƒ—ãƒ«ï¼‰
+ï¼‘ï¼git-bash.exeã‚’å®Ÿè¡Œã—ã¦ã€ã‚½ãƒ¼ã‚¹é…ç½®å ´æ‰€ã®speedãƒ•ã‚©ãƒ«ãƒ€ã«cdã™ã‚‹ã€‚
 
-—áFcd /c/Users/User/Documents/team-creatus/speed
+ä¾‹ï¼šcd /c/Users/User/Documents/team-creatus/speed
 
-‚QDƒvƒ‹ƒRƒ}ƒ“ƒh‚ğÀs‚·‚éB
-
-git pull
-
-** GitHub‚Éƒ\[ƒX‚ğƒAƒbƒvƒ[ƒh‚·‚éiƒvƒbƒVƒ…j
-‚PDgit-bash.exe‚ğÀs‚µ‚ÄAƒ\[ƒX”z’uêŠ‚ÌspeedƒtƒHƒ‹ƒ_‚Écd‚·‚éB
-
-—áFcd /c/Users/User/Documents/team-creatus/speed
-
-‚QDƒvƒ‹‚ğ‚µ‚ÄÅVƒ\[ƒX‚ğæ“¾‚·‚éB
+ï¼’ï¼ãƒ—ãƒ«ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
 
 git pull
 
-‚RDƒRƒ~ƒbƒg‘ÎÛƒ\[ƒX‚ğƒCƒ“ƒfƒbƒNƒX‚É’Ç‰Á‚·‚éB
+** GitHubã«ã‚½ãƒ¼ã‚¹ã‚’ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ï¼ˆãƒ—ãƒƒã‚·ãƒ¥ï¼‰
+ï¼‘ï¼git-bash.exeã‚’å®Ÿè¡Œã—ã¦ã€ã‚½ãƒ¼ã‚¹é…ç½®å ´æ‰€ã®speedãƒ•ã‚©ãƒ«ãƒ€ã«cdã™ã‚‹ã€‚
 
-git add ƒtƒ@ƒCƒ‹–¼
+ä¾‹ï¼šcd /c/Users/User/Documents/team-creatus/speed
 
-‚SDƒRƒ~ƒbƒg˜R‚ê‚ª–³‚¢‚©‚ÌŠm”F
+ï¼’ï¼ãƒ—ãƒ«ã‚’ã—ã¦æœ€æ–°ã‚½ãƒ¼ã‚¹ã‚’å–å¾—ã™ã‚‹ã€‚
+
+git pull
+
+ï¼“ï¼ã‚³ãƒŸãƒƒãƒˆå¯¾è±¡ã‚½ãƒ¼ã‚¹ã‚’ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«è¿½åŠ ã™ã‚‹ã€‚
+
+git add ãƒ•ã‚¡ã‚¤ãƒ«å
+
+ï¼”ï¼ã‚³ãƒŸãƒƒãƒˆæ¼ã‚ŒãŒç„¡ã„ã‹ã®ç¢ºèª
 
 git status
 
-‚TDƒ[ƒJƒ‹ƒŠƒ|ƒWƒgƒŠ‚Éƒ\[ƒX‚ğƒRƒ~ƒbƒg‚·‚éB
-¦-m ‚ÌŒã‚ÍƒRƒ~ƒbƒgƒRƒƒ“ƒg‚ğ“ü—Í‚·‚éB
+ï¼•ï¼ãƒ­ãƒ¼ã‚«ãƒ«ãƒªãƒã‚¸ãƒˆãƒªã«ã‚½ãƒ¼ã‚¹ã‚’ã‚³ãƒŸãƒƒãƒˆã™ã‚‹ã€‚
+â€»-m ã®å¾Œã¯ã‚³ãƒŸãƒƒãƒˆã‚³ãƒ¡ãƒ³ãƒˆã‚’å…¥åŠ›ã™ã‚‹ã€‚
 
-git commit -m "ƒRƒƒ“ƒg"
+git commit -m "ã‚³ãƒ¡ãƒ³ãƒˆ"
 
-‚UDƒRƒ~ƒbƒgŒ‹‰Ê‚ğGitHub‚É”½‰f‚·‚éiƒvƒbƒVƒ…j
+ï¼–ï¼ã‚³ãƒŸãƒƒãƒˆçµæœã‚’GitHubã«åæ˜ ã™ã‚‹ï¼ˆãƒ—ãƒƒã‚·ãƒ¥ï¼‰
 
 git push origin master
 
-¦ƒ†[ƒUAƒpƒXƒ[ƒh‚Ì“ü—Í‚ğ‹‚ß‚ç‚ê‚½‚çAÅã•”‚É‹LÚ‚µ‚½ƒ†[ƒUƒpƒXƒ[ƒh‚ğ“ü—Í‚·‚éB
+â€»ãƒ¦ãƒ¼ã‚¶ã€ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’æ±‚ã‚ã‚‰ã‚ŒãŸã‚‰ã€æœ€ä¸Šéƒ¨ã«è¨˜è¼‰ã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã™ã‚‹ã€‚
 
-** ‚»‚Ì‘¼‚Ìg‚¢•û
-*** ƒ\[ƒX‚Ì·•ª•\¦
-C³‘OŒã‚Ì·•ª‚ğ•\¦‚·‚éB
+** ãã®ä»–ã®ä½¿ã„æ–¹
+*** ã‚½ãƒ¼ã‚¹ã®å·®åˆ†è¡¨ç¤º
+ä¿®æ­£å‰å¾Œã®å·®åˆ†ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 
-git diff ”äŠr‚µ‚½‚¢ƒtƒ@ƒCƒ‹
+git diff æ¯”è¼ƒã—ãŸã„ãƒ•ã‚¡ã‚¤ãƒ«
 
-GitHub‚ÌƒTƒCƒg‚©‚çƒ\[ƒX‚Ì—š—ğ‚ğŠm”F‚Å‚«‚éB
+GitHubã®ã‚µã‚¤ãƒˆã‹ã‚‰ã‚½ãƒ¼ã‚¹ã®å±¥æ­´ã‚’ç¢ºèªã§ãã‚‹ã€‚
 https://github.com/team-creatus/speed
 
 
@@ -74,7 +74,7 @@ cd /c/Users/User/Documents/openshift/nodejs
 
 password: p@ssw0rd
 
-git commit -a -m "ƒVƒƒƒbƒtƒ‹ƒƒWƒbƒN‚ÌC³"
+git commit -a -m "ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ­ã‚¸ãƒƒã‚¯ã®ä¿®æ­£"
 
 
 
