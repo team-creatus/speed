@@ -1,0 +1,18 @@
+sugar.jsとは文字列・配列・日時などの操作を強化するライブラリ。
+
+使い方は以下の公式サイトを参照
+https://sugarjs.com/docs/
+
+使えそうな機能
+
+・配列のループ
+[1,2,3,4].each(function(n) {
+  // n: 1, 2, 3, 4
+});
+
+・文字列の空白チェック
+isBlank、isEmptyがJavaのcommons.langのように使える。
+
+・文字列→数値の変換
+toNumber関数
+
