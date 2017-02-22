@@ -10,8 +10,8 @@ speed.config(function($routeProvider) {
 });
 
 speed.factory('socket', ['$rootScope', function($rootScope) {
- var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
-// var socket = io.connect("http://localhost:8080");
+// var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
+ var socket = io.connect("http://localhost:8080");
   return {
 	on: function (eventName, callback) {
 		socket.on(eventName, function () {
@@ -70,53 +70,9 @@ speed.controller('loginController', ['$location','$scope', 'socket', function($l
 
 speed.controller('gameController', ['$scope','$routeParams','socket', function($scope,$routeParams,socket) {
 
-  //プレイヤー名設定
-  $scope.playerName = userName;
-  if(userName == speedDto.player1Name){
-  	$scope.oppName = speedDto.player2Name;
-　　　　
-　　　　//カード設定
-　　　　//残り枚数
-　　　　$scope.rest = speedDto.player1cardList.length + speedDto.player1fieldCardList.length;
-　　　　$scope.opprest = speedDto.player2cardList.length + speedDto.player2fieldCardList.length;
+　//カード反映処理
+  cardReflection(speedDto,$scope);
 
-　　　　//手札設定
-　　　　$scope.card1 = getCard(1,speedDto.player1fieldCardList[0][0]);
-　　　　$scope.card2 = getCard(1,speedDto.player1fieldCardList[1][0]);
-　　　　$scope.card3 = getCard(1,speedDto.player1fieldCardList[2][0]);
-　　　　$scope.card4 = getCard(1,speedDto.player1fieldCardList[3][0]);
-
-　　　　$scope.oppCard1 = getCard(2,speedDto.player2fieldCardList[0][0]);
-　　　　$scope.oppCard2 = getCard(2,speedDto.player2fieldCardList[1][0]);
-　　　　$scope.oppCard3 = getCard(2,speedDto.player2fieldCardList[2][0]);
-　　　　$scope.oppCard4 = getCard(2,speedDto.player2fieldCardList[3][0]);
-
-		//場札設定
-		$scope.fieldCard1 = getCard(1,speedDto.daiFuda1);
-		$scope.fieldCard2 = getCard(2,speedDto.daiFuda2);
-  } else {
-  	$scope.oppName = speedDto.player1Name;
-
-　　　　//カード設定
-　　　　//残り枚数
-　　　　$scope.rest = speedDto.player2cardList.length + speedDto.player2fieldCardList.length;
-　　　　$scope.opprest = speedDto.player1cardList.length + speedDto.player1fieldCardList.length;
-
-　　　　//手札設定
-　　　　$scope.card1 = getCard(2,speedDto.player2fieldCardList[0][0]);
-　　　　$scope.card2 = getCard(2,speedDto.player2fieldCardList[1][0]);
-　　　　$scope.card3 = getCard(2,speedDto.player2fieldCardList[2][0]);
-　　　　$scope.card4 = getCard(2,speedDto.player2fieldCardList[3][0]);
-
-　　　　$scope.oppCard1 = getCard(1,speedDto.player1fieldCardList[0][0]);
-　　　　$scope.oppCard2 = getCard(1,speedDto.player1fieldCardList[1][0]);
-　　　　$scope.oppCard3 = getCard(1,speedDto.player1fieldCardList[2][0]);
-　　　　$scope.oppCard4 = getCard(1,speedDto.player1fieldCardList[3][0]);
-
-		//場札設定
-		$scope.fieldCard1 = getCard(2,speedDto.daiFuda2);
-		$scope.fieldCard2 = getCard(1,speedDto.daiFuda1);
-  }
   /**
    * ドロップ時の処理
    */
@@ -251,10 +207,68 @@ speed.controller('gameController', ['$scope','$routeParams','socket', function($
     this.name = data;
   });
 
+  socket.on('result',function(data){
+	 speedDto = data;
+
+	 //カード反映処理
+	 cardReflection(speedDto,$scope);
+  });
+
 
 }]);
 
+/*
+ * カード反映処理
+ */
+function cardReflection(speedDto,$scope){
+	//プレイヤー名設定
+	  $scope.playerName = userName;
+	  if(userName == speedDto.player1Name){
+	  	$scope.oppName = speedDto.player2Name;
+	　　　　
+	　　　　//カード設定
+	　　　　//残り枚数
+	　　　　$scope.rest = speedDto.player1cardList.length + speedDto.player1fieldCardList.length;
+	　　　　$scope.opprest = speedDto.player2cardList.length + speedDto.player2fieldCardList.length;
 
+	　　　　//手札設定
+	　　　　$scope.card1 = getCard(1,speedDto.player1fieldCardList[0][0]);
+	　　　　$scope.card2 = getCard(1,speedDto.player1fieldCardList[1][0]);
+	　　　　$scope.card3 = getCard(1,speedDto.player1fieldCardList[2][0]);
+	　　　　$scope.card4 = getCard(1,speedDto.player1fieldCardList[3][0]);
+
+	　　　　$scope.oppCard1 = getCard(2,speedDto.player2fieldCardList[0][0]);
+	　　　　$scope.oppCard2 = getCard(2,speedDto.player2fieldCardList[1][0]);
+	　　　　$scope.oppCard3 = getCard(2,speedDto.player2fieldCardList[2][0]);
+	　　　　$scope.oppCard4 = getCard(2,speedDto.player2fieldCardList[3][0]);
+
+			//場札設定
+			$scope.fieldCard1 = getCard(1,speedDto.daiFuda1);
+			$scope.fieldCard2 = getCard(2,speedDto.daiFuda2);
+	  } else {
+	  	$scope.oppName = speedDto.player1Name;
+
+	　　　　//カード設定
+	　　　　//残り枚数
+	　　　　$scope.rest = speedDto.player2cardList.length + speedDto.player2fieldCardList.length;
+	　　　　$scope.opprest = speedDto.player1cardList.length + speedDto.player1fieldCardList.length;
+
+	　　　　//手札設定
+	　　　　$scope.card1 = getCard(2,speedDto.player2fieldCardList[0][0]);
+	　　　　$scope.card2 = getCard(2,speedDto.player2fieldCardList[1][0]);
+	　　　　$scope.card3 = getCard(2,speedDto.player2fieldCardList[2][0]);
+	　　　　$scope.card4 = getCard(2,speedDto.player2fieldCardList[3][0]);
+
+	　　　　$scope.oppCard1 = getCard(1,speedDto.player1fieldCardList[0][0]);
+	　　　　$scope.oppCard2 = getCard(1,speedDto.player1fieldCardList[1][0]);
+	　　　　$scope.oppCard3 = getCard(1,speedDto.player1fieldCardList[2][0]);
+	　　　　$scope.oppCard4 = getCard(1,speedDto.player1fieldCardList[3][0]);
+
+			//場札設定
+			$scope.fieldCard1 = getCard(2,speedDto.daiFuda2);
+			$scope.fieldCard2 = getCard(1,speedDto.daiFuda1);
+	  }
+}
 
 /*
 *　場札のURLを取得
