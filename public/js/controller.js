@@ -1,76 +1,92 @@
+/** モジュール定義 */
 var speed = angular.module('speed', ['ngRoute']);
+
+/** configはアプリケーションの開始前に実行される */
 speed.config(function($routeProvider) {
-  $routeProvider.when('/', {
-    templateUrl: 'login.html',
-    controller: 'loginController'
-  }).when('/game', {
-    templateUrl: 'game.html',
-    controller: 'gameController'
-  });
+	// ルーティングの設定
+	$routeProvider.when('/', {
+		templateUrl: 'login.html'
+	}).when('/game', {
+		templateUrl: 'game.html'
+	});
 });
 
+/** socket.io 接続設定 */
 speed.factory('socket', ['$rootScope', function($rootScope) {
 // var socket = io.connect("http://nodejs-creatus.rhcloud.com/");
- var socket = io.connect("http://localhost:8080");
-  return {
-	on: function (eventName, callback) {
-		socket.on(eventName, function () {
-			var args = arguments;
-			$rootScope.$apply(function () {
-				callback.apply(socket, args);
-			});
-		});
-	},
-	emit: function (eventName, data, callback) {
-		socket.emit(eventName, data, function () {
-			var args = arguments;
-			$rootScope.$apply(function () {
-				if (callback) {
+	var socket = io.connect("http://localhost:8080");
+	return {
+		on: function (eventName, callback) {
+			socket.on(eventName, function() {
+				var args = arguments;
+				$rootScope.$apply(function() {
 					callback.apply(socket, args);
-				}
+				});
 			});
-		});
-	}
-  };
+		},
+		emit: function (eventName, data, callback) {
+			socket.emit(eventName, data, function() {
+				var args = arguments;
+				$rootScope.$apply(function() {
+					if (callback) {
+						callback.apply(socket, args);
+					}
+				});
+			});
+		}
+	};
 }]);
 
+/** スピードDTO */
 var speedDto;
+/** ユーザ名 */
 var userName;
-var flag=false;
-speed.controller('loginController', ['$location','$scope', 'socket', function($location,$scope, socket) {
-  this.click = function() {
-    if (!flag) {
-    socket.emit("login", this.name);
-	userName = this.name;
-    }
-  };
 
-  socket.on("wait",function(){
-   if (!flag) {
-      $('#findModal').modal('show');
-      flag=true;
-   }
-  });
+/** ログイン画面コントローラ */
+speed.controller('loginController', ['$location','$scope', 'socket', function($location, $scope, socket) {
 
-  socket.on("battle",function(data){
-	speedDto=data;
-  $('#resutlModal').on('click', '.modal-footer .btn-primary', function () {
-    $('#resutlModal').modal('hide');
-    $location.path('/game');
-	flag=true;
-    setTimeout(function() {
-      $('#login').click();
-      $scope.apply();
-    }, 500);
-  });
-    $('#findModal').modal('hide');
-    $('#resutlModal').modal('show');
-  });
+	// ログインボタンの押下イベント
+	this.click = function() {
+		socket.emit("login", this.name);
+		userName = this.name;
+	};
+
+	// サーバから「wait」が通知された場合
+	socket.on("wait", function(){
+		// 待機中のダイアログを表示
+		$('#findModal').modal('show');
+	});
+
+	// サーバから「battle」が通知された場合
+	socket.on("battle", function(data){
+		speedDto = data;
+
+		// 対戦開始のダイアログを表示
+		$('#findModal').modal('hide');
+		$('#resutlModal').modal('show');
+
+		// 対戦開始ダイアログでOKが押下された場合
+		$('#resutlModal').on('click', '.modal-footer .btn-primary', function () {
+			// 対戦開始ダイアログを閉じる
+			$('#resutlModal').modal('hide');
+
+			// ゲーム画面に遷移
+			// Bootstrapのモーダルウインドウが閉じる前に画面遷移すると
+			// モーダル状態が解除されないため、少し遅延してから実行する
+			setTimeout(function() {
+				$location.path('/game');
+
+				// 対戦開始ダイアログのクリックイベントはAngularJSのライフサイクル外のため、
+				// applyでAngularJSに画面遷移を通知する
+				$scope.$apply();
+			}, 500);
+		});
+	});
 }]);
 
 speed.controller('gameController', ['$scope','$routeParams','socket', function($scope,$routeParams,socket) {
 
-　//カード反映処理
+	//カード反映処理
   cardReflection(speedDto,$scope);
 
   /**

@@ -1,9 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
     <title>speed</title>
   </head>
   <body ng-app="speed">
@@ -11,11 +10,11 @@
       <div class="container">
         <div class="form-group">
           <h1 id="name-msg" class="text-center">あなたの名前を入力してください。</h1>
-          <input type="text" class="input-lg form-control" placeholder="あなたの名前" ng-model="loginController.name">
+          <input type="text" class="input-lg form-control" placeholder="あなたの名前" ng-model="loginController.name"></input>
         </div>
         <div class="form-group">
           <div class="col-sm-12 text-center">
-            <button class="btn-primary btn-lg" id="login" data-toggle="modal" data-target="#findModal" ng-click="loginController.click()">ログイン</button>
+            <button class="btn-primary btn-lg" id="login" data-toggle="modal" ng-click="loginController.click()">ログイン</button>
           </div>
           <div class="modal fade" id="findModal">
             <div class="modal-dialog">
@@ -25,6 +24,18 @@
                   <h1 class="modal-title">対戦相手を探しています。</h1>
                   <img src="img/loading.gif" alt=""/>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="resutlModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h1 class="modal-title">対戦相手が見つかりました。</h1>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
               </div>
             </div>
           </div>

@@ -1,83 +1,139 @@
+#!/bin/env node
 var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var fs = require('fs');
+var io = require('socket.io')();
+var Speed = require('./SpeedService.js');
 
-http.listen(3000, function() {
-  console.log('listening on *:3000');
-});
+var App = function() {
 
-// expressでstaticファイル(*.css, *.js, *.html)を公開するために
-// 必要なstaticミドルウェア
-app.use(express.static('public'));
-app.use(express.static('views'));
+	var self = this;
+	var speed = new Speed(io);
 
-// /にアクセスした場合、index.htmlにリダイレクト
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+	/**
+	 *  IPアドレス、ポートの設定
+	 */
+	self.setupVariables = function() {
+        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
-// 待機中フラグ
-var waitPlayer = "0";
+		if (typeof self.ipaddress === "undefined") {
+			// IPアドレスが環境変数に未設定の場合、127.0.0.1とする
+			console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
+			self.ipaddress = "127.0.0.1";
+		}
+	};
 
-// 部屋IDリスト
-var roomIdList = [];
+	/**
+	 *  nodejs起動時の事前読み込み（キャッシュ）
+	 */
+	self.populateCache = function() {
+		if (typeof self.zcache === "undefined") {
+			self.zcache = { 'index.html' : '' };
+		}
 
-// 一時部屋ID
-var tmpRoomId;
+		self.zcache['index.html'] = fs.readFileSync('./index.html');
+	};
 
-io.sockets.on('connection', function(socket) {
-  console.log('a user connected');
+	/**
+	 *  キャッシュからファイルを取得
+	 */
+	self.cache_get = function(key) { return self.zcache[key]; };
 
-  socket.on('login', function(data) {
-	console.log('clicked login button');
-	console.log('send data:' + data);
-//	io.emit('userName', data);
+	/**
+	 *  終了処理
+	 */
+	self.terminator = function(sig){
+		if (typeof sig === "string") {
+			console.log('%s: Received %s - terminating sample app ...', Date(Date.now()), sig);
+			process.exit(1);
+		}
+		console.log('%s: Node server stopped.', Date(Date.now()) );
+	};
 
-	// 待機中プレイヤーが居る場合
-	if(waitPlayer == "1"){
-		console.log("battle");
-		waitPlayer = "0";
-		
-		// 待機中の部屋IDにjoin
-		socket.join(tmpRoomId);
+	/**
+	 *  終了ハンドラ
+	 */
+	self.setupTerminationHandlers = function(){
+		// exitイベントを受信した場合（processはnodejsのグローバル変数）
+		process.on('exit', function() { self.terminator(); });
 
-		// 対戦処理を呼び出し
-		io.to(tmpRoomId).emit('battle');
+		// 以下のイベントを受信した場合
+		['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
+		 'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
+		].forEach(function(element, index, array) {
+			process.on(element, function() { self.terminator(element); });
+		});
+	};
 
-	// 待機中プレイヤーが居ない場合
-	} else {
-		console.log("wait");
-		waitPlayer = "1";
+	/**
+	 *  ルーティング設定
+	 */
+	self.createRoutes = function() {
+		self.routes = { };
 
-		// 部屋IDを生成
-		tmpRoomId = createRoomId();
-		socket.join(tmpRoomId);
-		
-		// 待機中処理を呼び出し
-		io.to(tmpRoomId).emit('wait');
-	}
-  });
+		self.routes['/'] = function(req, res) {
+			res.setHeader('Content-Type', 'text/html');
+			res.send(self.cache_get('index.html'));
+		};
 
-  socket.on('disconnect', function() {
-    console.log("disconnect");
-  });
+		// テスト用
+		self.routes['/test'] = function(req, res) {
+			speed.test(req, res);
+		};
+	};
 
-});
+	/**
+	 *  expressアプリケーション初期化
+	 */
+	self.initializeServer = function() {
+		// ルーティング設定
+		self.createRoutes();
+		// expressアプリケーション生成
+		self.app = express();
 
-// 部屋IDをランダムに生成
-function createRoomId(){
-	// 乱数を生成
-	var roomId = Math.floor(Math.random() * 100);
-	
-	// 重複しないIDが生成されるまで繰り返し
-	while(roomIdList.indexOf(roomId) != -1){
-		roomId = Math.floor(Math.random() * 100);
-	}
-	
-	// 部屋IDリストに追加
-	roomIdList.push(roomId);
+		// 静的ファイルディレクトリ指定
+		self.app.use(express.static('public'));
+		self.app.use(express.static('views'));
 
-	return roomId;
-}
+		//  ルーティング設定
+		for (var r in self.routes) {
+			self.app.get(r, self.routes[r]);
+		}
+	};
 
+	/**
+	 *  nodejs初期化処理
+	 */
+	self.initialize = function() {
+		// IPアドレス、ポート設定
+		self.setupVariables();
+		// キャッシュ設定
+		self.populateCache();
+		// 終了ハンドラ設定
+		self.setupTerminationHandlers();
+
+		// expressアプリケーション初期化
+		self.initializeServer();
+	};
+
+	/**
+	 *  サーバ開始処理
+	 */
+	self.start = function() {
+		//  IPアドレス、ポートを設定
+		var server =
+		self.app.listen(self.port, self.ipaddress, function() {
+			console.log('%s: Node server started on %s:%d ...', Date(Date.now() ), self.ipaddress, self.port);
+		});
+
+		// socket.ioを設定
+		io.attach(server);
+	};
+};
+
+/**
+ *  メイン処理
+ */
+var app = new App();
+app.initialize();
+app.start();
