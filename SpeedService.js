@@ -45,7 +45,7 @@ var Speed = function(io) {
             socket.join(tmpRoomId);
 
             // ユーザ名リストを作成
-            var nameList = [];
+            var nameList = new Array();
 
             // 待機中ユーザ名と新規ユーザ名を追加
             nameList.push(tmpName);
@@ -80,10 +80,10 @@ var Speed = function(io) {
       });
 
       socket.on('count', function(data) {
-          if (countPlayer === "0" && countname === "") {
+          if (countPlayer == "0" && countname == "") {
             countPlayer = "1";
           } else {
-            if (countname === "") {
+            if (countname == "") {
               countname = data.userName;
             }
 
@@ -98,8 +98,8 @@ var Speed = function(io) {
           }
       });
 
-      socket.on('putcard', function(dto) {
-          console.log('putcard');
+      socket.on('put', function(dto) {
+          console.log('put');
           //console.log(dto);
 
           if (dto.username === dto.player1Name) {
@@ -122,9 +122,9 @@ var Speed = function(io) {
             logic.putMain(dto);
           }
 
-          io.emit('showcard', dto);
+          io.emit('result', dto);
       });
   });
-};
+}
 
 module.exports = Speed;

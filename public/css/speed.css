@@ -1,7 +1,9 @@
+/* 背景色 */
 body {
   background-image: url('../img/grass01.jpg');
 }
 
+/* 場札エリア */
 .field {
   border: none;
   height: 109px;
@@ -10,6 +12,7 @@ body {
   position: rerative;
 }
 
+/* プレイヤーカードエリア */
 .card-field {
   height: 108px;
   width: 50%;
@@ -17,18 +20,21 @@ body {
   position: rerative;
 }
 
+/* プレイヤーカード */
 .playerCard {
   cursor: move;
   height: 108px;
   width: 72px;
 }
 
+/* 対戦相手カード */
 .card {
   cursor: move;
   height: 108px;
   width: 72px;
 }
 
+/* 場札 */
 .dropArea{
   border-style:solid;
   cursor: move;
@@ -36,22 +42,28 @@ body {
   width: 72px;
 }
 
+/* 場札1 */
 .Area-1 { position: rerative; left: 0px; top: 0px; float: left;}
+/* 場札2 */
 .Area-2 { position: rerative; left: 0px; top: 0px; float: right;}
 
+/* 不要？ */
 .droped {
   height: 108px;
   width: 72px;
 }
 
+/* 不要？ */
 .dragging {
   opacity: 0.4;
 }
 
+/* 対戦相手カード */
 .opp-card {
   margin-top: 40px;
 }
 
+/* プレイヤーステータスエリア */
 .status {
   border: solid;
   background: #fff;
@@ -60,6 +72,7 @@ body {
   margin: 5% 0 0 20%;
 }
 
+/* 対戦相手ステータスエリア */
 .opp-status {
   border: solid;
   background: #fff;
@@ -68,25 +81,29 @@ body {
   margin:2% 0 0 0;
 }
 
+/* プレイヤーステータス */
 .status-detail {
   margin: 12px 0 0 40px;
 }
 
+/* 対戦相手ステータス */
 .opp-status-detail {
   margin: 12px 0 0 30px;
 }
 
+/* プレイヤー側手札1-4 */
 .card-1 { position: rerative; left: 0%;}
 .card-2 { position: rerative; left: 1%; }
 .card-3 { position: rerative; left: 2%; }
 .card-4 { position: rerative; left: 3%; }
 
-.opp-card-0 { position: rerative; left: 30%; margin-top: 0%; }
+/* 対戦相手側手札1-4 */
 .opp-card-1 { position: rerative; left: 0%; }
 .opp-card-2 { position: rerative; left: 1%; }
 .opp-card-3 { position: rerative; left: 2%; }
 .opp-card-4 { position: rerative; left: 3%; }
 
+/* レスポンシブルデザイン用定義 */
 @media screen and (max-width:800px) {
 
   .field {
@@ -149,4 +166,59 @@ body {
   .opp-card-3 { position: absolute; left: 145px; }
   .opp-card-4 { position: absolute; left: 195px; }
 
+}
+
+
+
+@media screen and (max-width: 719px){
+
+ .card-1 {
+    position: absolute;
+    left: 0px;
+ }
+
+
+.card-2 {
+    position: absolute;
+    left: 50px;
+ }
+
+
+
+ .card-3 {
+    position: absolute;
+    left: 100px;
+ }
+
+
+ .card-4 {
+    position: absolute;
+    left: 150px;
+ }
+
+
+
+ .card-field {
+    height: 10px;
+    width: 10px;
+    margin: 250px 0 0 10px;
+    position: absolute;
+ }
+
+
+ .dropArea {
+    border-style: solid;
+    cursor: move;
+    height: 58px;
+    width: 40px;
+ }
+}
+
+@media screen and (max-width: 719px)
+speed.css:20
+.playerCard {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+    position: absolute;
 }
