@@ -18,30 +18,26 @@ var INFO_MSG_GAME_END = 'ゲーム終了';
 function rmFieldCard(speedDto) {
 
   var submitCard = speedDto.submitCard;
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.playerNo === 1) {
     for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
       // 置いたカードと同じ場札を削除
       if (speedDto.player1fieldCardList[i][0] === submitCard) {
-        console.log('削除するカード：' + speedDto.player1fieldCardList[i]);
-        console.log('追加するカード：' + speedDto.player1cardList[0]);
         // 削除するカードを手札の先頭のカードで上書きする
         speedDto.player1fieldCardList[i][0] = speedDto.player1cardList[0];
         // 追加した手札を削除
         speedDto.player1cardList.shift();
-        console.log('削除後の場札： ' + speedDto.player1fieldCardList);
+        break;
       }
     }
   } else {
     for (var i = 0; i < speedDto.player2fieldCardList.length; i++) {
       // 置いたカードと同じ場札を削除
       if (speedDto.player2fieldCardList[i][0] === submitCard) {
-        console.log('削除するカード：' + speedDto.player2fieldCardList[i]);
-        console.log('追加するカード：' + speedDto.player2cardList[0]);
         // 削除するカードを手札の先頭のカードで上書きする
         speedDto.player2fieldCardList[i][0] = speedDto.player2cardList[0];
         // 追加した手札を削除
         speedDto.player2cardList.shift();
-        console.log('削除後の場札： ' + speedDto.player2fieldCardList);
+        break;
       }
     }
   }
@@ -131,7 +127,7 @@ function shuffle(cards) {
 
   for (i = 0; i < array.length; i++) {
     randomCards[i] = cards[array[i]];
-    //randomCards[i] = array[i];
+    randomCards[i] = array[i];
   }
 
   //log(randomCards);
@@ -149,23 +145,22 @@ exports.putMain = function(speedDto) {
   // 排他チェック
   if (!checkExclusion(speedDto)) {
     // チェックエラーの場合speedDtoを返却して処理終了
-    console.log('排他チェックエラー');
     return speedDto;
   }
 
   // 排他ロック
   lockExclusion(speedDto);
 
-  console.log('module.exports.getMasterDto');
-  console.log(_master_dto.get(speedDto.roomId));
-
   // 台札重ねられるかチェック
   if (!checkPut(_master_dto.get(speedDto.roomId))) {
 
-    var result =  getResultDto(speedDto.roomId, "", "");
-    console.dir(result);
+    console.log('台札エラー');
+    // var result =  getResultDto(speedDto.roomId, "", "");
+    // 排他ロックを解除
+    unLockExclusion(_master_dto.get(speedDto.roomId));
     // エラーの場合、speedDtoを返却して処理終了
-    return result;
+    // return result;
+    return speedDto;
   }
 
   // カードを台札に重ねる
@@ -173,35 +168,26 @@ exports.putMain = function(speedDto) {
 
   // 場札更新
   if (updateFieldCard(_master_dto.get(speedDto.roomId))) {
-    console.log('updateFieldCardがtrueを返却');
     // trueが返却された場合どちらかの手札がなくなり処理終了
     return module.exports.getResultDto(speedDto);
-  } else {
-    console.log('updateFieldCardがfalseを返却');
-    // マスタdtoに設定
-    module.exports.setMasterDto(speedDto.roomId, speedDto);
   }
 
   // プレイヤ双方の台札設定可否
   while (!checkGame(speedDto)) {
-    console.log('どちらも台札を置くことができない状態');
     // プレイヤ双方がカードを台札に置くことができない場合
     if (!updateLeadCard(speedDto)) {
       // ゲーム続行不可能の場合、ゲーム終了のメッセージを送信する
-      console.log('ゲーム終了');
-      return getResultDto(INFO_MSG_GAME_END, INFO_MSG_GAME_END);
+      // 排他ロックを解除
+      unLockExclusion(_master_dto.get(speedDto.roomId));
+      return getResultDto(speedDto.roomId, INFO_MSG_GAME_END, INFO_MSG_GAME_END);
     }
   }
 
   // 排他ロックを解除
   unLockExclusion(_master_dto.get(speedDto.roomId));
 
-  // スピードDTOをマスターDTOに設定
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
-  console.dir(_master_dto.get(speedDto.roomId));
-
   // speedDtoを返却して処理終了
-  return getResultDto(INFO_MSG_CHANGE_FIELD_CARDS, INFO_MSG_CHANGE_FIELD_CARDS);
+  return getResultDto(speedDto.roomId, INFO_MSG_GAME_END, INFO_MSG_GAME_END);
 
 }
 
@@ -213,7 +199,7 @@ exports.putMain = function(speedDto) {
 function checkExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを判定
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.playerNo === 1) {
     if (speedDto.processStatus1 === 1) {
       return false;
     }
@@ -232,14 +218,12 @@ function checkExclusion(speedDto) {
 function lockExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを処理中に更新
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.playerNo === 1) {
+
     speedDto.processStatus1 = 1;
-    console.log('プレイヤ1の処理ステータスを1にする');
-    console.log('プレイヤ1処理ステータス: ' + speedDto.processStatus1);
   } else {
+
     speedDto.processStatus2 = 1;
-    console.log('プレイヤ2の処理ステータスを1にする');
-    console.log('プレイヤ2処理ステータス: ' +  speedDto.processStatus2);
   }
 
   // ステータスを更新したdtoをマスターdtoに設定
@@ -253,29 +237,30 @@ function lockExclusion(speedDto) {
  */
 function checkPut(speedDto) {
 
-  console.log(speedDto);
+  var submitCard = speedDto.submitCard > 13 ? speedDto.submitCard - 13 : speedDto.submitCard;
+  var daiFuda1 = speedDto.daiFuda1 > 13 ? speedDto.daiFuda1 - 13 : speedDto.daiFuda1;
+  var daiFuda2 = speedDto.daiFuda2 > 13 ? speedDto.daiFuda2 - 13 : speedDto.daiFuda2;
+
   // 重ね札位置にひもづく台札を判定
-  if (speedDto.cardPosition === 1) {
-    console.log('台札1:' + speedDto.daiFuda1);
-    console.log('重ね札:' + speedDto.submitCard);
-
+  if (speedDto.cardPosition === '1') {
+    console.log('cardposition:1');
+    console.log(submitCard);
+    console.log(daiFuda1);
     // 台札と重ね札の差の絶対値が1の場合または12の場合、正常
-    if (Math.abs(speedDto.daiFuda1 - speedDto.submitCard) === 1 || Math.abs(speedDto.daiFuda1 - speedDto.submitCard) === 12) {
+    if (Math.abs(daiFuda1 - submitCard) === 1 || Math.abs(daiFuda1 - submitCard) === 12) {
 
-      console.log('put処理成功');
       return true;
     }
   } else {
-    console.log('台札2:' + speedDto.daiFuda2);
-    console.log('重ね札:' + speedDto.submitCard);
 
-    if (Math.abs(speedDto.daiFuda2 - speedDto.submitCard) === 1 || Math.abs(speedDto.daiFuda2 - speedDto.submitCard) === 12) {
+    console.log('cardposition:2');
+    console.log(submitCard);
+    console.log(daiFuda2);
+    if (Math.abs(daiFuda2 - submitCard) === 1 || Math.abs(daiFuda2 - submitCard) === 12) {
 
-      console.log('put処理成功');
       return true;
     }
   }
-  console.log('put処理失敗');
   return false;
 }
 
@@ -298,17 +283,19 @@ function getResultDto(roomId, mes1, mes2) {
  */
 function putLeadCard(speedDto) {
 
-  console.log('台札にカードを置く');
   // 重ね札位置にひもづく台札を判定
   var submitCard = [speedDto.submitCard];
   if (speedDto.cardPosition === 1) {
-    speedDto.daiFuda1 = submitCard;
+
+    speedDto.daiFuda1 = [submitCard];
   } else {
-    speedDto.daiFuda2 = submitCard;
+
+    speedDto.daiFuda2 = [submitCard];
   }
-  console.log(speedDto);
   // 台札を更新
   module.exports.setMasterDto(speedDto.roomId, speedDto);
+  console.log('putleadcard');
+  console.log(_master_dto.get(speedDto.roomId));
 }
 
 /**
@@ -319,13 +306,7 @@ function putLeadCard(speedDto) {
  */
 function updateFieldCard(speedDto) {
 
-  console.log('場札の更新');
-  console.log('置いたカード' + speedDto.submitCard);
-  console.log('プレイヤー１の場札（削除前）: ' + speedDto.player1fieldCardList);
-  console.log('プレイヤー２の場札（削除前）: ' + speedDto.player2fieldCardList);
   rmFieldCard(speedDto);
-  console.log('プレイヤー１の場札（削除後）: ' + speedDto.player1fieldCardList);
-  console.log('プレイヤー２の場札（削除後）: ' + speedDto.player2fieldCardList);
   // それぞれのプレイヤーの場札の枚数が4より小の場合
   while (speedDto.player1fieldCardList.length !== 4) {
     // プレイヤー1の手札が0の場合、ゲーム終了
@@ -333,14 +314,10 @@ function updateFieldCard(speedDto) {
       console.log('プレイヤー１の手札が0になりました。');
       return true;
     }
-    console.log('プレイヤー１の手札（更新前）:' + speedDto.player1cardList);
-    console.log('プレイヤー１の場札（更新前）:' + speedDto.player1fieldCardList);
     // プレイヤー1の場札に手札を追加
     speedDto.player1fieldCardList.push(speedDto.player1cardList[0]);
     // プレイヤー1の手札から追加した要素を削除
     speedDto.player1cardList.shift();
-    console.log('プレイヤー１の手札（更新後）:' + speedDto.player1cardList);
-    console.log('プレイヤー１の場札（更新後）:' + speedDto.player1fieldCardList);
   }
   while (speedDto.player2fieldCardList.length !== 4) {
     // プレイヤー2の手札が0の場合、ゲーム終了
@@ -348,24 +325,16 @@ function updateFieldCard(speedDto) {
       console.log('プレイヤー２の手札が0になりました。');
       return true;
     }
-    console.log('プレイヤー２の手札（更新前）:' + speedDto.player2cardList);
-    console.log('プレイヤー２の場札（更新前）:' + speedDto.player2fieldCardList);
     // プレイヤー2の場札に手札を追加
     speedDto.player2fieldCardList.push(speedDto.player2cardList[0]);
     // プレイヤー2の手札から追加した要素を削除
     speedDto.player2cardList.shift();
-    console.log('プレイヤー２の手札（更新後）:' + speedDto.player2cardList);
-    console.log('プレイヤー２の場札（更新後）:' + speedDto.player2fieldCardList);
   }
-  console.log('プレイヤー１の手札の枚数:' + speedDto.player1cardList.length);
-  console.log('プレイヤー１の手札（更新後）:' + speedDto.player1cardList);
-  console.log('プレイヤー１の場札（更新後）:' + speedDto.player1fieldCardList);
-  console.log('プレイヤー２の手札の枚数:' + speedDto.player2cardList.length);
-  console.log('プレイヤー２の手札（更新後）:' + speedDto.player2cardList);
-  console.log('プレイヤー２の場札（更新後）:' + speedDto.player2fieldCardList);
 
   // 結果をマスタDTOに設定
   module.exports.setMasterDto(speedDto.roomId, speedDto);
+  console.log('update');
+  console.log(_master_dto.get(speedDto.roomId));
   // 処理終了時の双方の手札の枚数を判定
   return speedDto.player1cardList.length === 0 || speedDto.player2cardList.length === 0 ? true : false;
 }
@@ -385,7 +354,7 @@ function checkGame(speedDto) {
       state = true;
     }
   }
-  for (i = 0; i < p2len; i++) {
+  for (i = 0; i < p1len; i++) {
     if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
       || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
       state = true;
@@ -437,19 +406,11 @@ function updateLeadCard(speedDto) {
  */
 function unLockExclusion(speedDto) {
 
-  console.log('排他ロックを解除');
-  console.log('実行前');
-  console.log('プレイヤ1処理ステータス: ' + speedDto.processStatus1);
-  console.log('プレイヤ2処理ステータス: ' + speedDto.processStatus2);
-
-  if (speedDto.cardPosition === 1) {
-    speedDto.processStatus1 = 0;
+  if (speedDto.playerNo === 1) {
+    speedDto.processStatus1 = '';
   } else {
-    speedDto.processStatus2 = 0;
+    speedDto.processStatus2 = '';
   }
-  console.log('実行後');
-  console.log('プレイヤ1処理ステータス: ' + speedDto.processStatus1);
-  console.log('プレイヤ2処理ステータス: ' + speedDto.processStatus2);
 
   // マスターdtoを設定
   module.exports.setMasterDto(speedDto.roomId, speedDto);
@@ -496,8 +457,6 @@ exports.createSpeedDto = function(roomId,nameList) {
   _master_dto.set(roomId, dto);
   console.dir('#################### MASTER DTO ####################');
   console.log(_master_dto);
-  console.dir('プレイヤ１カードリスト:' + dto.player1fieldCardList);
-  console.dir('プレイヤ２カードリスト:' + dto.player2fieldCardList);
   console.dir('#################### MASTER DTO ####################');
   return dto;
 };

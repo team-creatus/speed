@@ -100,28 +100,23 @@ var Speed = function(io) {
 
       socket.on('put', function(dto) {
           console.log('put');
-          //console.log(dto);
 
           if (dto.username === dto.player1Name) {
 
-            // dto.player1fieldCardList[1][0] = 10;
-            // dto.daiFuda1[0] = 4;
             // カードを置いたプレイヤを1に設定
-            dto.cardPosition = 1;
-            dto.player1cardList.shift();
+            dto.playerNo = 1;
             console.log('カードを置いたプレイヤー: ' + dto.player1Name);
-            logic.putMain(dto);
+            dto = logic.putMain(dto);
           } else {
 
-            // dto.player2fieldCardList[3][0] = 24;
-            // dto.daiFuda2[0] = 7;
             // カードを置いたプレイヤを2に設定
-            dto.cardPosition = 2;
-            dto.player2cardList.shift();
+            dto.playerNo = 2;
             console.log('カードを置いたプレイヤー: ' + dto.player2Name);
-            logic.putMain(dto);
+            dto = logic.putMain(dto);
           }
 
+          console.log('putend');
+          console.log(dto);
           io.emit('result', dto);
       });
   });
