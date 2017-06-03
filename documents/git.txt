@@ -68,19 +68,15 @@ git diff 比較したいファイル
 GitHubのサイトからソースの履歴を確認できる。
 https://github.com/team-creatus/speed
 
-
-
 cd /c/Users/User/Documents/openshift/nodejs
-
 password: p@ssw0rd
 
+◆コミットメッセージの付け方
 git commit -a -m "シャッフルロジックの修正"
 
-
-
+◆ユーザ名の付け方
 git config user.name "Ryohei Sakata"
-
 git config user.email r-sakata@ite-center.com
 
-
-
+◆パスワードを記憶させる
+git config --global credential.helper store
