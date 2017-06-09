@@ -157,8 +157,8 @@ speed.controller('gameController', ['$scope','$routeParams','socket', function($
 	            /* ドラッグした要素を削除 */
 	            // $(ui.draggable).remove();
 
-	            /* ドロップが成立した場合 revertをfalseにして、元の位置に戻らないようにする。 */
-	            flg = false;
+//	            /* ドロップが成立した場合 revertをfalseにして、元の位置に戻らないようにする。 */
+//	            flg = false;
 
 	            /* ユーザー名 */
 	            speedDto.username = userName;
