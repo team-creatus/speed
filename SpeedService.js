@@ -117,6 +117,12 @@ var Speed = function(io) {
 
           console.log('putend');
           console.log(dto);
+
+          // 置いたカードを初期化
+          dto.submitCard = '';
+          // 置いたカードの場所を初期化
+          dto.cardPosition = '';
+
           io.emit('result', dto);
       });
   });

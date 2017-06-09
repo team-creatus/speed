@@ -12,9 +12,9 @@ var INFO_MSG_CHANGE_FIELD_CARDS = '台札の入れ替えをしました';
 /** ゲーム終了メッセージ */
 var INFO_MSG_GAME_END = 'ゲーム終了';
 
-/************ 暫定 ************
- * 置いたカードを判定する関数 *
- ******************************/
+/**
+ * updatefieldcardに統合したため削除予定
+ */
 function rmFieldCard(speedDto) {
 
   var submitCard = speedDto.submitCard;
@@ -42,7 +42,7 @@ function rmFieldCard(speedDto) {
     }
   }
   // マスターdtoを設定
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
+  setMasterDto(speedDto.roomId, speedDto);
 }
 
 // 部屋IDリスト
@@ -57,15 +57,15 @@ function log(message) {
 /**
  * マスターDTOを返却
  */
-exports.getMasterDto = function() {
+var getMasterDto = function() {
   return _master_dto;
 }
 
 /**
  * マスターDTOを設定
  */
-exports.setMasterDto = function(roomId, speedDto) {
-  module.exports.getMasterDto().set(roomId, speedDto);
+var setMasterDto = function(roomId, speedDto) {
+  getMasterDto().set(roomId, speedDto);
 }
 
 // 部屋IDをランダムに生成
@@ -112,7 +112,7 @@ function newCards() {
  */
 function shuffle(cards) {
 
-  var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+  var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
 
   var n = array.length, t, i;
 
@@ -169,7 +169,7 @@ exports.putMain = function(speedDto) {
   // 場札更新
   if (updateFieldCard(_master_dto.get(speedDto.roomId))) {
     // trueが返却された場合どちらかの手札がなくなり処理終了
-    return module.exports.getResultDto(speedDto);
+    return getResultDto(speedDto);
   }
 
   // プレイヤ双方の台札設定可否
@@ -199,7 +199,7 @@ exports.putMain = function(speedDto) {
 function checkExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを判定
-  if (speedDto.playerNo === 1) {
+  if (speedDto.cardPosition === 1) {
     if (speedDto.processStatus1 === 1) {
       return false;
     }
@@ -218,7 +218,7 @@ function checkExclusion(speedDto) {
 function lockExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを処理中に更新
-  if (speedDto.playerNo === 1) {
+  if (speedDto.cardPosition === 1) {
 
     speedDto.processStatus1 = 1;
   } else {
@@ -227,7 +227,7 @@ function lockExclusion(speedDto) {
   }
 
   // ステータスを更新したdtoをマスターdtoに設定
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
+  setMasterDto(speedDto.roomId, speedDto);
 }
 
 /**
@@ -240,25 +240,28 @@ function checkPut(speedDto) {
   var submitCard = speedDto.submitCard > 13 ? speedDto.submitCard - 13 : speedDto.submitCard;
   var daiFuda1 = speedDto.daiFuda1 > 13 ? speedDto.daiFuda1 - 13 : speedDto.daiFuda1;
   var daiFuda2 = speedDto.daiFuda2 > 13 ? speedDto.daiFuda2 - 13 : speedDto.daiFuda2;
+  var errorCode = '';
 
   // 重ね札位置にひもづく台札を判定
   if (speedDto.cardPosition === '1') {
-    console.log('cardposition:1');
-    console.log(submitCard);
-    console.log(daiFuda1);
     // 台札と重ね札の差の絶対値が1の場合または12の場合、正常
     if (Math.abs(daiFuda1 - submitCard) === 1 || Math.abs(daiFuda1 - submitCard) === 12) {
 
       return true;
+    } else {
+
+      // 処理結果コードにputエラーを設定
+      this.player1ResultCode = 'put_error';
     }
   } else {
 
-    console.log('cardposition:2');
-    console.log(submitCard);
-    console.log(daiFuda2);
     if (Math.abs(daiFuda2 - submitCard) === 1 || Math.abs(daiFuda2 - submitCard) === 12) {
 
       return true;
+    } else {
+
+      // 処理結果コードにputエラーを設定
+      this.player2ResultCode = 'put_error';
     }
   }
   return false;
@@ -270,7 +273,7 @@ function checkPut(speedDto) {
  * @param mes2 プレイヤー2メッセージ
  * @return dto ユーザーに返却するDto
  */
-function getResultDto(roomId, mes1, mes2) {
+var getResultDto = function(roomId, mes1, mes2) {
   var speedDto = _master_dto.get(roomId);
   // speedDto.player1Message = mes1;
   // speedDtk.player2Message = mes2;
@@ -284,18 +287,15 @@ function getResultDto(roomId, mes1, mes2) {
 function putLeadCard(speedDto) {
 
   // 重ね札位置にひもづく台札を判定
-  var submitCard = [speedDto.submitCard];
   if (speedDto.cardPosition === 1) {
 
-    speedDto.daiFuda1 = [submitCard];
+    speedDto.daiFuda1 = [speedDto.submitCard];
   } else {
 
-    speedDto.daiFuda2 = [submitCard];
+    speedDto.daiFuda2 = speedDto.submitCard;
   }
   // 台札を更新
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
-  console.log('putleadcard');
-  console.log(_master_dto.get(speedDto.roomId));
+  setMasterDto(speedDto.roomId, speedDto);
 }
 
 /**
@@ -306,35 +306,60 @@ function putLeadCard(speedDto) {
  */
 function updateFieldCard(speedDto) {
 
-  rmFieldCard(speedDto);
-  // それぞれのプレイヤーの場札の枚数が4より小の場合
-  while (speedDto.player1fieldCardList.length !== 4) {
-    // プレイヤー1の手札が0の場合、ゲーム終了
-    if (speedDto.player1cardList.length === 0) {
-      console.log('プレイヤー１の手札が0になりました。');
-      return true;
+  var submitCard = speedDto.submitCard;
+  if (speedDto.playerNo === 1) {
+
+    for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
+      // 置いたカードと同じ場札を削除
+      if (speedDto.player1fieldCardList[i][0] === submitCard) {
+
+        // 手札がない場合、put処理に成功した場札を空で上書き
+        if (speedDto.player1cardList.length === 0) {
+          speedDto.player1fieldCardList[i][0] = '';
+          console.log('プレイヤー１の手札が0になりました。');
+          break;
+        }
+
+        // 削除するカードを手札の先頭のカードで上書きする
+        speedDto.player1fieldCardList[i][0] = speedDto.player1cardList[0];
+        // 追加した手札を削除
+        speedDto.player1cardList.shift();
+        break;
+      }
     }
-    // プレイヤー1の場札に手札を追加
-    speedDto.player1fieldCardList.push(speedDto.player1cardList[0]);
-    // プレイヤー1の手札から追加した要素を削除
-    speedDto.player1cardList.shift();
-  }
-  while (speedDto.player2fieldCardList.length !== 4) {
-    // プレイヤー2の手札が0の場合、ゲーム終了
-    if (speedDto.player2cardList.length === 0) {
-      console.log('プレイヤー２の手札が0になりました。');
-      return true;
+
+  } else {
+
+    for (var i = 0; i < speedDto.player2fieldCardList.length; i++) {
+      // 置いたカードと同じ場札を削除
+      if (speedDto.player2fieldCardList[i][0] === submitCard) {
+
+        // 手札がない場合、put処理に成功した場札を空で上書き
+        if (speedDto.player2cardList.length === 0) {
+          speedDto.player2fieldCardList[i][0] = '';
+          console.log('プレイヤー２の手札が0になりました。');
+          break;
+        }
+
+        // 削除するカードを手札の先頭のカードで上書きする
+        speedDto.player2fieldCardList[i][0] = speedDto.player2cardList[0];
+        // 追加した手札を削除
+        speedDto.player2cardList.shift();
+        break;
+      }
     }
-    // プレイヤー2の場札に手札を追加
-    speedDto.player2fieldCardList.push(speedDto.player2cardList[0]);
-    // プレイヤー2の手札から追加した要素を削除
-    speedDto.player2cardList.shift();
+
+    /************************************************************************************************************************************************************
+     * 20170609 分科会にて確認
+    レビューでは当関数に場札更新処理が必要との指摘があるが
+    checkput関数でエラーがない場合後続の処理でputleadcard関数は呼び出しているため
+    ここに移動するべきかを確認
+    putLeadCard(_master_dto.get(speedDto.roomId));
+    ************************************************************************************************************************************************************/
   }
 
   // 結果をマスタDTOに設定
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
-  console.log('update');
-  console.log(_master_dto.get(speedDto.roomId));
+  setMasterDto(speedDto.roomId, speedDto);
   // 処理終了時の双方の手札の枚数を判定
   return speedDto.player1cardList.length === 0 || speedDto.player2cardList.length === 0 ? true : false;
 }
@@ -391,7 +416,7 @@ function updateLeadCard(speedDto) {
   speedDto.player1cardList.shift();
   // 台札に置いたカードを削除
   speedDto.player2cardList.shift();
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
+  setMasterDto(speedDto.roomId, speedDto);
   // 両プレイヤーの手札がなくなった場合
   if (speedDto.player1cardList.length === 0 && speedDto.player2cardList.length === 0) {
     return false;
@@ -406,14 +431,14 @@ function updateLeadCard(speedDto) {
  */
 function unLockExclusion(speedDto) {
 
-  if (speedDto.playerNo === 1) {
+  if (speedDto.cardPosition === 1) {
     speedDto.processStatus1 = '';
   } else {
     speedDto.processStatus2 = '';
   }
 
   // マスターdtoを設定
-  module.exports.setMasterDto(speedDto.roomId, speedDto);
+  setMasterDto(speedDto.roomId, speedDto);
 }
 
 /**
@@ -455,9 +480,9 @@ exports.createSpeedDto = function(roomId,nameList) {
 
   // 生成したspeedDtoをマスターDTOに設定
   _master_dto.set(roomId, dto);
-  console.dir('#################### MASTER DTO ####################');
-  console.log(_master_dto);
-  console.dir('#################### MASTER DTO ####################');
+  console.log('#################### MASTER DTO ####################');
+  console.log(dto);
+  console.log('#################### MASTER DTO ####################');
   return dto;
 };
 
