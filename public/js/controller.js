@@ -237,6 +237,9 @@ function cardReflection(speedDto,$scope){
     if(userName == speedDto.player1Name){
     	$scope.oppName = speedDto.player2Name;
 
+    	// メッセージ設定
+    	$scope.message = speedDto.player1Message;
+
     	// カード設定
         // 残り枚数
         $scope.rest = speedDto.player1cardList.length + speedDto.player1fieldCardList.length;
@@ -259,6 +262,8 @@ function cardReflection(speedDto,$scope){
     } else {
     	$scope.oppName = speedDto.player1Name;
 
+    	// メッセージ設定
+    	$scope.message = speedDto.player2Message;
         // カード設定
         // 残り枚数
         $scope.rest = speedDto.player2cardList.length + speedDto.player2fieldCardList.length;
@@ -278,6 +283,25 @@ function cardReflection(speedDto,$scope){
         // 場札設定
         $scope.fieldCard1 = getCard(2,speedDto.daiFuda2);
         $scope.fieldCard2 = getCard(1,speedDto.daiFuda1);
+    }
+
+    // 勝敗判定
+    if(speedDto.player1ResultCode == "2" || speedDto.player2ResultCode == "2"){
+    	var result = confirm($scope.message);
+
+    	// TODO 未実装
+    	// 再戦
+    	if(result){
+
+    	// 終了
+    	} else {
+
+    	}
+    }
+
+    // メッセージエリアデフォルト値設定
+    if($scope.message == ""){
+    	$scope.message = "メッセージエリア";
     }
 }
 
