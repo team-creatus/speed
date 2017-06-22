@@ -141,6 +141,8 @@ function shuffle(cards) {
  */
 exports.putMain = function(speedDto) {
 
+  speedDto.player1Message = '';
+  speedDto.player2Message = '';
 
   // 排他チェック
   if (!checkExclusion(speedDto)) {
@@ -162,6 +164,9 @@ exports.putMain = function(speedDto) {
     // return result;
     return speedDto;
   }
+
+  speedDto.player1Message = 'put!';
+  speedDto.player2Message = 'put!';
 
   // カードを台札に重ねる
   putLeadCard(_master_dto.get(speedDto.roomId));
@@ -199,7 +204,7 @@ exports.putMain = function(speedDto) {
 function checkExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを判定
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.cardPosition === '1') {
     if (speedDto.processStatus1 === 1) {
       return false;
     }
@@ -218,7 +223,7 @@ function checkExclusion(speedDto) {
 function lockExclusion(speedDto) {
 
   // 重ね札位置にひもづく処理ステータスを処理中に更新
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.cardPosition === '1') {
 
     speedDto.processStatus1 = 1;
   } else {
@@ -287,14 +292,14 @@ var getResultDto = function(roomId, mes1, mes2) {
 function putLeadCard(speedDto) {
 
   // 重ね札位置にひもづく台札を判定
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.cardPosition === '1') {
 
-    speedDto.daiFuda1 = [speedDto.submitCard];
+    speedDto.daiFuda1 = speedDto.submitCard;
   } else {
 
     speedDto.daiFuda2 = speedDto.submitCard;
   }
-  // 台札を更新
+  // カードが置けないため台札を更新
   setMasterDto(speedDto.roomId, speedDto);
 }
 
@@ -348,14 +353,6 @@ function updateFieldCard(speedDto) {
         break;
       }
     }
-
-    /************************************************************************************************************************************************************
-     * 20170609 分科会にて確認
-    レビューでは当関数に場札更新処理が必要との指摘があるが
-    checkput関数でエラーがない場合後続の処理でputleadcard関数は呼び出しているため
-    ここに移動するべきかを確認
-    putLeadCard(_master_dto.get(speedDto.roomId));
-    ************************************************************************************************************************************************************/
   }
 
   // 結果をマスタDTOに設定
@@ -372,34 +369,35 @@ function checkGame(speedDto) {
 
   var p1len = speedDto.player1fieldCardList.length;
   var p2len = speedDto.player2fieldCardList.length;
-  var state = false;
+
   for (var i = 0; i < p1len; i++) {
     if (Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 1
       || Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 12) {
-      state = true;
+      return true;
     }
   }
   for (i = 0; i < p1len; i++) {
     if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
       || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
-      state = true;
+      return true;
     }
   }
   for (i = 0; i < p2len; i++) {
     if (Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 1
       || Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 12) {
-      state = true;
+      return true;
     }
   }
   for (i = 0; i < p2len; i++) {
     if (Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 1
       || Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 12) {
-      state = true;
+      return true;
     }
   }
 
-  console.log('checkGame 結果：' + state);
-  return state;
+  speedDto.player1Message = 'カードが置けないため台札を更新';
+  speedDto.player2Message = 'カードが置けないため台札を更新';
+  return false;
 }
 
 /**
@@ -431,7 +429,7 @@ function updateLeadCard(speedDto) {
  */
 function unLockExclusion(speedDto) {
 
-  if (speedDto.cardPosition === 1) {
+  if (speedDto.cardPosition === '1') {
     speedDto.processStatus1 = '';
   } else {
     speedDto.processStatus2 = '';
