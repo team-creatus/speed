@@ -3,6 +3,21 @@ body {
   background-image: url('../img/grass01.jpg');
 }
 
+/* メッセージエリア */
+.messageErea{
+	border: solid;
+	background:#fff;
+	height: 40px;
+	width: 250px;
+	margin:3% 0 0 3%;
+}
+.message{
+	height: 37px;
+	width: 250px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
 /* 場札エリア */
 .field {
   border: none;
