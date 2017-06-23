@@ -3,12 +3,28 @@ body {
   background-image: url('../img/grass01.jpg');
 }
 
+/* メッセージエリア */
+.messageErea{
+	border: solid;
+	background:#fff;
+	height: 40px;
+	width: 250px;
+	margin:3% 0 0 3%;
+}
+.message{
+	height: 37px;
+	width: 250px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
 /* 場札エリア */
 .field {
   border: none;
   height: 109px;
   width: 190px;
   margin:5% 0 0 6%;
+  //margin-top: 30px;
   position: rerative;
 }
 
@@ -170,13 +186,27 @@ body {
 
 
 
-@media screen and (max-width: 719px){
+@media screen and (max-width: 799px){
+
+  .field {
+    border: none;
+    height: 18px;
+    width: 120px;
+    margin: 45px 0 0 50px;
+    position: absolute;
+  }
+
+  .card-field {
+    height: 10px;
+    width: 10px;
+    margin: 150px 0px 0px 30px;
+    position: absolute;
+ }
 
  .card-1 {
     position: absolute;
     left: 0px;
  }
-
 
 .card-2 {
     position: absolute;
@@ -196,15 +226,33 @@ body {
     left: 150px;
  }
 
-
-
- .card-field {
-    height: 10px;
-    width: 10px;
-    margin: 250px 0 0 10px;
-    position: absolute;
+ .opp {
+   margin-left:30px;
  }
 
+.opp-card {
+    margin-top: 30px;
+ }
+
+ .opp-card-1 {
+    position: relative;
+    left: 0%;
+ }
+
+ .opp-card-2 {
+    position: relative;
+    left: 1%;
+ }
+
+ .opp-card-3 {
+    position: relative;
+    left: 2%;
+ }
+
+ .opp-card-4 {
+    position: relative;
+    left: 3%;
+ }
 
  .dropArea {
     border-style: solid;
@@ -212,13 +260,96 @@ body {
     height: 58px;
     width: 40px;
  }
-}
 
-@media screen and (max-width: 719px)
-speed.css:20
-.playerCard {
+ .playerCard {
     cursor: move;
     height: 58px;
     width: 40px;
-    position: absolute;
+    position: absolute !important;
+ }
+
+ .status {
+    background: #fff;
+    width: 210px;
+    margin: 240px 0 0 20px;
+ }
 }
+
+@media screen and (max-width: 767px){
+
+  .field {
+    border: none;
+    height: 18px;
+    width: 120px;
+    margin: 125px 0 0 50px;
+    position: absolute;
+  }
+
+ .card-field {
+    height: 10px;
+    width: 10px;
+    margin: 230px 0 0 30px;
+    position: absolute;
+ }
+
+ .card-1 {
+    position: relative;
+    left: 0px;
+ }
+
+ .card-2 {
+    position: relative;
+    left: 50px;
+ }
+
+ .card-3 {
+    position: relative;
+    left: 100px;
+ }
+
+ .card-4 {
+    position: relative;
+    left: 150px;
+ }
+
+ .opp-card-1 {
+	position: absolute;
+    left: 45px;
+ }
+
+ .opp-card-2 {
+    position: absolute;
+    left: 95px;
+ }
+
+ .opp-card-3 {
+    position: absolute;
+    left: 145px;
+ }
+
+ .opp-card-4 {
+    position: absolute;
+    left: 195px;
+ }
+
+ .dropArea {
+    border-style: solid;
+    cursor: move;
+    height: 58px;
+    width: 40px;
+ }
+
+ .playerCard {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+    position: absolute !important;
+ }
+
+ .status {
+    background: #fff;
+    width: 210px;
+    margin:320px 0 0 20px;
+ }
+}
+
