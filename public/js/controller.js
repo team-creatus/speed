@@ -49,12 +49,12 @@ speed.controller('loginController', ['$location','$scope', 'socket', function($l
 
 	// ログインボタンの押下イベント
 	this.click = function() {
-		socket.emit("login", this.name);
-        userName = this.name;
-    	if(userName ==""){
-    		$window.alert('名前を入力してください。');
-			exit;
-    	}
+		userName = this.name;
+		if(userName == "" || userName ==  null){
+			window.alert("名前を入力してください");
+		}else{
+			socket.emit("login", this.name);
+		}
 	};
 
     // サーバから「wait」が通知された場合
