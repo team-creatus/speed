@@ -241,7 +241,7 @@ speed.controller('gameController', ['$scope','$routeParams','socket','$interval'
 	        /* ドロップ可能領域ではない場合、元の位置に戻る */
 	        revert: true,
 	        /* 元の位置に戻る速度 ミリ秒 */
-	        revertDuration: 100,
+	        revertDuration: 0,
 	        /* ドラッグ中に実行する */
 	        drag: function() {},
 		});
