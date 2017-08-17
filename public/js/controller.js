@@ -50,8 +50,8 @@ speed.controller('loginController', ['$location','$scope', 'socket', function($l
 	// ログインボタンの押下イベント
 	this.click = function() {
 		userName = this.name;
-		if(userName == "" || userName ==  null){
-			window.alert("名前を入力してください");
+		if(userName ===  null ||typeof userName === "undefined" || userName === "" ){
+			$('#noNameModal').modal("show");
 		}else{
 			socket.emit("login", this.name);
 		}
