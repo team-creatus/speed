@@ -3,12 +3,27 @@ body {
   background-image: url('../img/grass01.jpg');
 }
 
+/* メッセージエリア */
+.messageErea{
+	border: solid;
+	background:#fff;
+	height: 40px;
+	width: 250px;
+	margin:3% 0 0 3%;
+}
+.message{
+	height: 37px;
+	width: 250px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
 /* 場札エリア */
 .field {
   border: none;
   height: 109px;
   width: 190px;
-  margin:5% 0 0 6%;
+  margin:2% 0 0 6%;
   //margin-top: 30px;
   position: rerative;
 }
@@ -17,7 +32,7 @@ body {
 .card-field {
   height: 108px;
   width: 50%;
-  margin: 6% 0 0 0%;
+  margin: 2% 0 0 0%;
   position: rerative;
 }
 
@@ -70,7 +85,7 @@ body {
   background: #fff;
   height: 50px;
   width: 200px;
-  margin: 5% 0 0 20%;
+  margin: 2% 0 0 20%;
 }
 
 /* 対戦相手ステータスエリア */
@@ -104,6 +119,17 @@ body {
 .opp-card-3 { position: rerative; left: 2%; }
 .opp-card-4 { position: rerative; left: 3%; }
 
+/* メッセージ */
+.alert {
+    display: none; /* 初期状態は非表示 */
+    width: 200px;
+    /* 画面上部に表示 */
+    top: 50%;
+    left: 12%;
+    position:fixed;
+	font-size: xx-large;
+	text-align:center;
+}
 /* レスポンシブルデザイン用定義 */
 @media screen and (max-width:800px) {
 

@@ -46,16 +46,15 @@ var flag;
 /** ログイン画面コントローラ */
 speed.controller('loginController', ['$location','$scope', 'socket', function($location, $scope, socket) {
 
-
-      // ログインボタンの押下イベント
-      this.click = function() {
-        socket.emit("login", this.name);
-        userName = this.name;
-        if(userName ==""){
-          $window.alert('名前を入力してください。');
-          exit;
-        }
-      };
+	// ログインボタンの押下イベント
+	this.click = function() {
+		userName = this.name;
+		if(userName ===  null ||typeof userName === "undefined" || userName === "" ){
+			$('#noNameModal').modal("show");
+		}else{
+			socket.emit("login", this.name);
+		}
+	};
 
       // サーバから「wait」が通知された場合
       socket.on("wait", function(){
@@ -85,7 +84,48 @@ speed.controller('loginController', ['$location','$scope', 'socket', function($l
       });
 }]);
 
-speed.controller('gameController', ['$scope','$routeParams','socket', function($scope,$routeParams,socket) {
+var timerFlag = true;
+var countFlag1=true;
+var countFlag2=true;
+var countFlag3=true;
+var start=true;
+speed.controller('gameController', ['$scope','$routeParams','socket','$interval', function($scope,$routeParams,socket) {
+
+	// カウントダウン処理
+	if (timerFlag) {
+		timerFlag=false;
+		$scope.countdown = "wait";
+		$('.alert').modal('show');
+		socket.emit("count", {userName:userName, count:3});
+	}
+
+	socket.on("timer", function(data) {
+		if (data.countdown <= 0) {
+			if (start) {
+				start = false;
+				$scope.countdown = "Start!"
+				$('.alert').fadeIn(0).delay(800).fadeOut(200);
+			}
+		} else {
+			if (countFlag3 && data.countdown==3) {
+				$('.alert').modal('hide');
+				countFlag3=false;
+				$scope.countdown = "3";
+				$('.alert').fadeIn(0).delay(800).fadeOut(200);
+				socket.emit("count", {userName:userName, count:2});
+			} else if (countFlag2 && data.countdown==2) {
+				countFlag2=false;
+				$scope.countdown = "2";
+				$('.alert').fadeIn(0).delay(800).fadeOut(200);
+				socket.emit("count", {userName:userName, count:1});
+			} else if (countFlag1 && data.countdown==1) {
+				countFlag1=false;
+				$scope.countdown = "1";
+				$('.alert').fadeIn(0).delay(800).fadeOut(200);
+				socket.emit("count", {userName:userName, count:0});
+			}
+		}
+	});
 
       // カード反映処理
       cardReflection(speedDto,$scope);

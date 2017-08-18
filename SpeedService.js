@@ -88,9 +88,6 @@ var Speed = function(io) {
             }
 
             if (data.userName == countname) {
-              console.log('userName:' + data.userName);
-              console.log('countname:' + countname);
-              console.log('countname:' + data.count);
               setInterval(function() {
                   io.emit('timer', { countdown: data.count });
               }, 1000);
