@@ -117,6 +117,23 @@ var Speed = function(io) {
 
           io.emit('result', dto);
       });
+
+      socket.on('test', function(dto) {
+          console.log('test');
+          var len1 = dto.player1cardList.length;
+          var len2 = dto.player2cardList.length;
+
+          for (var i = 0; i < len1 / 2; i++) {
+            dto.player1cardList.splice(Math.floor(Math.random() * dto.player1cardList.length), 1);
+          }
+          for (var i = 0; i < len2 / 2; i++) {
+            dto.player2cardList.splice(Math.floor(Math.random() * dto.player2cardList.length), 1);
+          }
+          console.log(dto);
+
+          io.emit('result', dto);
+      });
+
   });
 }
 
