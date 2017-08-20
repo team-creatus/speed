@@ -1,0 +1,38 @@
+1. Android SDKのダウンロード
+https://dl.google.com/android/repository/sdk-tools-windows-3859397.zip?hl=ja
+
+2. Android SDK Platform-toolsのインストール
+解凍して、コマンドプロンプトで、binフォルダ内に移動して以下のコマンドを実行
+※JAVA_HOMEにJDKのパスを設定すること
+sdkmanager.bat platform-tools
+type nul > ユーザフォルダ\.android\repositories.cfg
+sdkmanager extras;google;usb_driver
+
+3. adb.exeをPATHに通す
+platform-toolsフォルダができているので、そのフォルダをPATHにとおす。
+
+4. Google Chromeのアドレスに以下を入力
+chrome://inspect/#devices
+
+5. AndroidをUSBで接続
+
+6. Port forwarding
+Port forwardingボタンを押下して、Enable port forwarding にチェック
+Portに8080、IP address and port にlocalhost:8080が設定されていること。
+
+7. 実機のChromeでlocalhost:8080に接続
+Androidの画面をPCに出力
+
+
+1. VysorをChromeにインストール
+http://www.vysor.io/
+
+2. Vysorの起動
+※実機をUSBデバッグモードで接続しておくこと
+Chromeの拡張機能からVysorを起動して、
+Find Devicesボタンから実機を選択。
+その後、Viewボタンで起動する。
+
+※起動して10秒後に広告が出るので、
+プレゼンでは事前に広告を消しておくこと。
+
