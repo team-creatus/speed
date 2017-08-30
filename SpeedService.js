@@ -22,6 +22,9 @@ var Speed = function(io) {
   var countPlayer = "0";
   var countname = "";
 
+  // カード更新フラグ
+  var updatePlayer = "0";
+  var updateName = "";
   /*
    *  socket.ioメイン処理
    */
@@ -88,11 +91,41 @@ var Speed = function(io) {
             }
 
             if (data.userName == countname) {
-              setInterval(function() {
+              setTimeout(function() {
                   io.emit('timer', { countdown: data.count });
               }, 1000);
+              if(data.count === 0){
+            	  countPlayer = "0";
+            	  countname = "";
+              }
             }
           }
+      });
+
+
+      socket.on('cardUpdate',function(data) {
+    	  console.log("cardUpdate");
+    	  console.log("data.userName:" + data.userName);
+    	  console.log("data.count:" + data.count);
+    	  console.log("updatePlayer:" + updatePlayer);
+    	  console.log("updateName:" + updateName);
+    	  if (updatePlayer == "0" && updateName == "") {
+    		  updatePlayer = "1";
+          } else {
+              if (updateName == "") {
+            	  updateName = data.userName;
+              }
+              console.log("updateName:" + updateName);
+              if (data.userName == updateName) {
+                if(data.count === 0){
+                	updatePlayer = "0";
+                	updateName = "";
+                }
+                setTimeout(function() {
+                    io.emit('updateModal', { count: data.count });
+                }, 1000);
+              }
+            }
       });
 
       socket.on('put', function(dto) {

@@ -145,13 +145,19 @@ exports.putMain = function(speedDto) {
     return getResultDto(speedDto.roomId, INFO_MSG_GAME_END, INFO_MSG_GAME_END);
   }
 
+  // カード更新判定フラグ
+  speedDto.checkGameResult = true;
   // プレイヤ双方の台札設定可否
   while (!checkGame(speedDto)) {
     // プレイヤ双方がカードを台札に置くことができない場合
+	// カード更新判定フラグにfalseを設定
+	speedDto.checkGameResult = false;
     if (!updateLeadCard(speedDto)) {
       // ゲーム続行不可能の場合、ゲーム終了のメッセージを送信する
       // 排他ロックを解除
       unLockExclusion(_master_dto.get(speedDto.roomId));
+      // カード更新判定フラグにtrueを設定
+      speedDto.checkGameResult = true;
       return getResultDto(speedDto.roomId, INFO_MSG_GAME_END, INFO_MSG_GAME_END);
     }
   }
@@ -374,42 +380,92 @@ function checkGame(speedDto) {
 
   console.log('checkgame');
 
-  for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
-    if (speedDto.player1fieldCardList[i][0] === 0) {
-      continue;
-    }
-    if (Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 12) {
-      return true;
-    }
+  var daifuda1 = speedDto.daiFuda1;
+  var daifuda2 = speedDto.daiFuda2;
+
+  if (daifuda1 > 13) {
+	  daifuda1 = daifuda1 - 13;
   }
-  for (i = 0; i < speedDto.player1fieldCardList.length; i++) {
-    if (speedDto.player1fieldCardList[i][0] === 0) {
-      continue;
-    }
-    if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
-      return true;
-    }
+  if (daifuda2 > 13) {
+	  daifuda2 = daifuda2 - 13;
   }
-  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
-    if (speedDto.player2fieldCardList[i][0] === 0) {
-      continue;
-    }
-    if (Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 12) {
-      return true;
-    }
+
+  var checkCard;
+
+  for (var i = 0; i < 4; i++) {
+
+	checkCard = speedDto.player1fieldCardList[i];
+	if (speedDto.player1fieldCardList[i][0] === 0) {
+		continue;
+	}
+
+	if (checkCard > 13) {
+		checkCard = checkCard - 13;
+	}
+
+	if(Math.abs(daifuda1 - checkCard) === 1 ||
+		Math.abs(daifuda1 - checkCard) === 12 ||
+		Math.abs(daifuda2 - checkCard) === 1 ||
+		Math.abs(daifuda2 - checkCard) === 12){
+		return true;
+	}
   }
-  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
-    if (speedDto.player2fieldCardList[i][0] === 0) {
-      continue;
-    }
-    if (Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 12) {
-      return true;
-    }
+
+  for (var i = 0; i < 4; i++) {
+
+		checkCard = speedDto.player2fieldCardList[i];
+		if (speedDto.player2fieldCardList[i][0] === 0) {
+			continue;
+		}
+
+		if (checkCard > 13) {
+			checkCard = checkCard - 13;
+		}
+
+		if(Math.abs(daifuda1 - checkCard) === 1 ||
+			Math.abs(daifuda1 - checkCard) === 12 ||
+			Math.abs(daifuda2 - checkCard) === 1 ||
+			Math.abs(daifuda2 - checkCard) === 12){
+			return true;
+		}
   }
+
+//  for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
+//    if (speedDto.player1fieldCardList[i][0] === 0) {
+//      continue;
+//    }
+//    if (Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 1
+//      || Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 12) {
+//      return true;
+//    }
+//  }
+//  for (i = 0; i < speedDto.player1fieldCardList.length; i++) {
+//    if (speedDto.player1fieldCardList[i][0] === 0) {
+//      continue;
+//    }
+//    if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
+//      || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
+//      return true;
+//    }
+//  }
+//  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
+//    if (speedDto.player2fieldCardList[i][0] === 0) {
+//      continue;
+//    }
+//    if (Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 1
+//      || Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 12) {
+//      return true;
+//    }
+//  }
+//  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
+//    if (speedDto.player2fieldCardList[i][0] === 0) {
+//      continue;
+//    }
+//    if (Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 1
+//      || Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 12) {
+//      return true;
+//    }
+//  }
 
   speedDto.player1Message = 'カードが置けないため台札を更新';
   speedDto.player2Message = 'カードが置けないため台札を更新';
