@@ -320,8 +320,8 @@ speed.controller('testController', ['$location','$scope', 'socket', function($lo
         $scope.oppCard4 = getCard(2,speedDto.player2fieldCardList[3][0]);
 
         // 場札設定
-        $scope.fieldCard1 = getCard(1,speedDto.daiFuda1);
-        $scope.fieldCard2 = getCard(2,speedDto.daiFuda2);
+        $scope.fieldCard1 = getCard(speedDto.daiFuda1[0], speedDto.daiFuda1[1]);
+        $scope.fieldCard2 = getCard(speedDto.daiFuda2[0], speedDto.daiFuda2[1]);
       } else {
         $scope.oppName = speedDto.player1Name;
 
@@ -360,8 +360,8 @@ speed.controller('testController', ['$location','$scope', 'socket', function($lo
         $scope.oppCard4 = getCard(1,speedDto.player1fieldCardList[3][0]);
 
         // 場札設定
-        $scope.fieldCard1 = getCard(2,speedDto.daiFuda2);
-        $scope.fieldCard2 = getCard(1,speedDto.daiFuda1);
+        $scope.fieldCard1 = getCard(speedDto.daiFuda2[0], speedDto.daiFuda2[1]);
+        $scope.fieldCard2 = getCard(speedDto.daiFuda1[0], speedDto.daiFuda1[1]);
       }
 
       // 勝敗判定

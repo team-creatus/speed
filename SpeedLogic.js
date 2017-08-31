@@ -211,8 +211,8 @@ function checkPut(speedDto) {
 
   console.log('checkput');
   var submitCard = speedDto.submitCard > 13 ? speedDto.submitCard - 13 : speedDto.submitCard;
-  var daiFuda1 = speedDto.daiFuda1 > 13 ? speedDto.daiFuda1 - 13 : speedDto.daiFuda1;
-  var daiFuda2 = speedDto.daiFuda2 > 13 ? speedDto.daiFuda2 - 13 : speedDto.daiFuda2;
+  var daiFuda1 = speedDto.daiFuda1[1] > 13 ? speedDto.daiFuda1[1] - 13 : speedDto.daiFuda1[1];
+  var daiFuda2 = speedDto.daiFuda2[1] > 13 ? speedDto.daiFuda2[1] - 13 : speedDto.daiFuda2[1];
   var errorCode = '';
 
   // 重ね札位置にひもづく台札を判定
@@ -248,8 +248,6 @@ function checkPut(speedDto) {
  */
 var getResultDto = function(roomId, mes1, mes2) {
   var speedDto = _master_dto.get(roomId);
-  console.log('getresultdto');
-  console.dir(speedDto);
   return speedDto;
 }
 
@@ -262,11 +260,10 @@ function putLeadCard(speedDto) {
   // 重ね札位置にひもづく台札を判定
   if (speedDto.cardPosition === '1') {
 
-    // TODO:台札は常に配列でプレイヤー番号を保持する？
-    speedDto.daiFuda1 = [speedDto.submitCard];
+    speedDto.daiFuda1 = [speedDto.playerNo, [speedDto.submitCard]];
   } else {
 
-    speedDto.daiFuda2 = [speedDto.submitCard];
+    speedDto.daiFuda2 = [speedDto.playerNo, [speedDto.submitCard]];
   }
   // マスターDTO更新
   setMasterDto(speedDto.roomId, speedDto);
@@ -280,7 +277,6 @@ function putLeadCard(speedDto) {
  */
 function updateFieldCard(speedDto) {
 
-  console.log('updateFieldCard');
   var submitCard = speedDto.submitCard;
   if (speedDto.playerNo === 1) {
 
@@ -373,13 +369,15 @@ function updateFieldCard(speedDto) {
 function checkGame(speedDto) {
 
   console.log('checkgame');
+  var daifuda1 = speedDto.daiFuda1[1];
+  var daifuda2 = speedDto.daiFuda2[1];
 
   for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
     if (speedDto.player1fieldCardList[i][0] === 0) {
       continue;
     }
-    if (Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 12) {
+    if (Math.abs(daifuda1 - speedDto.player1fieldCardList[i]) === 1
+      || Math.abs(daifuda1 - speedDto.player1fieldCardList[i]) === 12) {
       return true;
     }
   }
@@ -387,8 +385,8 @@ function checkGame(speedDto) {
     if (speedDto.player1fieldCardList[i][0] === 0) {
       continue;
     }
-    if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
+    if (Math.abs(daifuda2 - speedDto.player1fieldCardList[i]) === 1
+      || Math.abs(daifuda2 - speedDto.player1fieldCardList[i]) === 12) {
       return true;
     }
   }
@@ -396,8 +394,8 @@ function checkGame(speedDto) {
     if (speedDto.player2fieldCardList[i][0] === 0) {
       continue;
     }
-    if (Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 12) {
+    if (Math.abs(daifuda2 - speedDto.player2fieldCardList[i]) === 1
+      || Math.abs(daifuda2 - speedDto.player2fieldCardList[i]) === 12) {
       return true;
     }
   }
@@ -405,8 +403,8 @@ function checkGame(speedDto) {
     if (speedDto.player2fieldCardList[i][0] === 0) {
       continue;
     }
-    if (Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 1
-      || Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 12) {
+    if (Math.abs(daifuda2 - speedDto.player2fieldCardList[i]) === 1
+      || Math.abs(daifuda2 - speedDto.player2fieldCardList[i]) === 12) {
       return true;
     }
   }
@@ -440,19 +438,17 @@ function updateLeadCard(speedDto) {
 
   // プレイヤー1の手札の枚数が0ではない場合
   if (speedDto.player1cardList.length !== 0) {
-    console.log('XXXXXXXXXXXXXXX');
     // プレイヤー1の手札を台札1に置く
-    speedDto.daiFuda1 = [speedDto.player1cardList[0]];
+    speedDto.daiFuda1 = ['1', [speedDto.player1cardList[0]]];
     // 台札に置いたカードを削除
     speedDto.player1cardList.shift();
 
   // プレイヤー1の手札の枚数が0の場合かつプレイヤー1の場札の枚数が0ではない場合
   } else if (countCard(speedDto.player1fieldCardList) !== 0) {
-    console.log('YYYYYYYYYYYYYYYYY');
     // 場札の中から[0]以外の値を走査
     for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
       if (speedDto.player1fieldCardList[i][0] !== 0) {
-        speedDto.daiFuda1 = speedDto.player1fieldCardList[i];
+        speedDto.daiFuda1 = ['1', [speedDto.player1fieldCardList[i]]];
         // 台札に置いたカードを削除
         speedDto.player1fieldCardList[i] = [0];
         break;
@@ -464,7 +460,7 @@ function updateLeadCard(speedDto) {
   // プレイヤー2の手札の枚数が0ではない場合
   if (speedDto.player2cardList.length !== 0) {
     // プレイヤー2の手札を台札2に置く
-    speedDto.daiFuda2 = [speedDto.player2cardList[0]];
+    speedDto.daiFuda2 = ['2', [speedDto.player2cardList[0]]];
     // 台札に置いたカードを削除
     speedDto.player2cardList.shift();
 
@@ -473,7 +469,7 @@ function updateLeadCard(speedDto) {
     // 場札の中から[0]以外の値を走査
     for (var i = 0; i < speedDto.player2fieldCardList.length; i++) {
       if (speedDto.player2fieldCardList[i][0] !== 0) {
-        speedDto.daiFuda2 = speedDto.player2fieldCardList[i];
+        speedDto.daiFuda2 = ['2', [speedDto.player2fieldCardList[i]]];
         // 台札に置いたカードを削除
         speedDto.player2fieldCardList[i] = [0];
         break;
@@ -573,8 +569,8 @@ exports.createSpeedDto = function(roomId,nameList) {
   dto.player2fieldCardList = createFieldCardList(dto.player2cardList, 2);
 
   // 台札1,2の選定
-  dto.daiFuda1 = selectRandomCard(dto.player1cardList, 1);
-  dto.daiFuda2 = selectRandomCard(dto.player2cardList, 2);
+  dto.daiFuda1 = ['', [selectRandomCard(dto.player1cardList, 1)]];
+  dto.daiFuda2 = ['', [selectRandomCard(dto.player2cardList, 2)]];
 
   // 生成したspeedDtoをマスターDTOに設定
   _master_dto.set(roomId, dto);
