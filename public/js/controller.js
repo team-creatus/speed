@@ -263,8 +263,32 @@ speed.controller('gameController', ['$scope','$routeParams','socket','$interval'
           socket.on('result',function(data){
               speedDto = data;
 
+              // 台札更新判定
+              if(!speedDto.checkGameResult){
+            	  // ダイアログを表示
+            	  $scope.countdown = "カードを置けません";
+            	  $('.alert').modal('show');
+          		  socket.emit("cardUpdate", {userName:userName, count:1});
+
+          		  var modalFlg1 = true;
+          		  var modalFlg0 = true;
+
+          		  socket.on("updateModal",function(data) {
+          			  if(modalFlg1 && data.count === 1){
+          				  $('.alert').modal('hide');
+          				  modalFlg1 = false;
+          				  $scope.countdown = "カードを配ります";
+          				  $('.alert').fadeIn(0).delay(800).fadeOut(200);
+          				  socket.emit("cardUpdate",{userName:userName, count:0});
+          			  } else if(modalFlg0 && data.count <= 0){
+          				  modalFlg0 = false;
+          				 $scope.countdown = "Readey?";
+          				 $('.alert').fadeIn(0).delay(800).fadeOut(200);
+          			  }
+          		  });
+              }
               // カード反映処理
-              cardReflection(speedDto,$scope);
+              cardReflection(speedDto,$scope)
           });
     }]);
 
