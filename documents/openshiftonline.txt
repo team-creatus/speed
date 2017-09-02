@@ -1,13 +1,39 @@
+■OpenShiftOnlineにログイン
 https://openshift.redhat.com/app/login?then=%2Fapp%2Fconsole
 
 creatus@outlook.jp
 sutaerc0000
 
-git clone ssh://59a6e2cb0c1e660205000006@speed-creatus.rhcloud.com/~/git/speed.git/
+■Git
+git clone ssh://59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com/~/git/speed.git/
+
+■アプリページ
 
 
-https://openshift.redhat.com/app/console/application/59a6e2cb0c1e660205000006-speed
+■Tera Termでログイン
+59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com
 
+user:59aa5eb50c1e66400f0000a0
+pass:p@ssw0rd
+SSHキーを指定すること。
 
+ログの場所
+cd $OPENSHIFT_LOG_DIR
+
+■OpenShiftOnline構築メモ
+以前導入したときはNodojs(0.10)のサーバを構築していたが、
+今回再構築したサーバはNode.js(最新版 ※NodejsのUpdateに伴いサーバのNodejsも自動Updateする)を構築していた。
+
+最新版のNodejs ver8.3.0では、server.jsでなく、start.jsが起動していた。
+また、start.jsで起動すると、4プロセス起動して、クラスタリングする構成になっていた。
+
+以前構築時の状態に戻すため、
+package.jsonのscriptsのstart.jsをserver.jsに修正。
+また、dependenciesにexpressとsocket.ioを記載。
+socket.ioの最新版はVer2系だが、今回開発はVer1系でないと動かないため、dependenciesに記載するときに注意する。
+※OpenShiftOnlineはpush時にdependenciesを見て、ライブラリを自動的にインポートしている。
+　→そのため、node_modelesフォルダのpushは不要だった。
+
+クライアント側のsocket接続にて、JSエラーが発生したため、接続アドレスに8000ポートを付与した。
 
 
