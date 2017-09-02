@@ -8,7 +8,7 @@ sutaerc0000
 git clone ssh://59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com/~/git/speed.git/
 
 ■アプリページ
-
+http://speedgame-creatus.rhcloud.com/
 
 ■Tera Termでログイン
 59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com
@@ -21,8 +21,12 @@ SSHキーを指定すること。
 cd $OPENSHIFT_LOG_DIR
 
 ■OpenShiftOnline構築メモ
-以前導入したときはNodojs(0.10)のサーバを構築していたが、
+以前導入したときはNodejs(0.10)のサーバを構築していたが、
 今回再構築したサーバはNode.js(最新版 ※NodejsのUpdateに伴いサーバのNodejsも自動Updateする)を構築していた。
+
+Nodejs Ver0.10でのサーバ構築も可能だったが、
+Ver0.10の場合、ServerLogic.jsで使用しているMapオブジェクトが使えないため、
+最新版で構築した。
 
 最新版のNodejs ver8.3.0では、server.jsでなく、start.jsが起動していた。
 また、start.jsで起動すると、4プロセス起動して、クラスタリングする構成になっていた。
@@ -36,4 +40,6 @@ socket.ioの最新版はVer2系だが、今回開発はVer1系でないと動か
 
 クライアント側のsocket接続にて、JSエラーが発生したため、接続アドレスに8000ポートを付与した。
 
+OpenShiftOnlineへのPush時に、ビルドとサーバ再起動が行われる。
+起動エラーとなる場合、Teratermで上記記載した場所でNodejsのサーバログを参照することができる。
 
