@@ -1,0 +1,13 @@
+https://openshift.redhat.com/app/login?then=%2Fapp%2Fconsole
+
+creatus@outlook.jp
+sutaerc0000
+
+git clone ssh://59a6e2cb0c1e660205000006@speed-creatus.rhcloud.com/~/git/speed.git/
+
+
+https://openshift.redhat.com/app/console/application/59a6e2cb0c1e660205000006-speed
+
+
+
+
