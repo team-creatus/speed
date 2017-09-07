@@ -1,23 +1,12 @@
 /* 背景色 */
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic);
 body {
-  background-image: url('../img/grass01.jpg');
+  background-image: url('../img/green_velvet_bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Avenir Next" , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
 }
 
-/* メッセージエリア */
-.messageErea{
-	border: solid;
-	background:#fff;
-	height: 40px;
-	width: 250px;
-	margin:3% 0 0 3%;
-}
-.message{
-	height: 37px;
-	width: 250px;
-	text-align: center;
-	display: table-cell;
-	vertical-align: middle;
-}
 /* 場札エリア */
 .field {
   border: none;
@@ -52,7 +41,6 @@ body {
 
 /* 場札 */
 .dropArea{
-  border-style:solid;
   cursor: move;
   height: 108px;
   width: 72px;
@@ -81,30 +69,76 @@ body {
 
 /* プレイヤーステータスエリア */
 .status {
-  border: solid;
-  background: #fff;
-  height: 50px;
-  width: 200px;
-  margin: 2% 0 0 20%;
+  color: #920;
+  display: inline-block;
+  background: #fa0;
+  height: 70px;
+  width: 400px;
+  text-decoration: none;
+  border-bottom: solid 4px #e80;
+  border-radius: 10px;margin: 4% 0 0 -4%;
+  opacity: 0.9;
 }
 
 /* 対戦相手ステータスエリア */
 .opp-status {
-  border: solid;
-  background: #fff;
-  height: 50px;
-  width: 200px;
-  margin:2% 0 0 0;
+  color: #a30;
+  border-radius: 10px;
+  background: #fa0;
+  height: 70px;
+  width: 400px;
+  text-decoration: none;
+  border-bottom: solid 4px #e80;
+  border-radius: 10px;margin: 4% 0 0 -4%;
+  opacity: 0.9;
 }
 
 /* プレイヤーステータス */
 .status-detail {
-  margin: 12px 0 0 40px;
+  text-align: center;
+  line-height: 70px;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 /* 対戦相手ステータス */
 .opp-status-detail {
-  margin: 12px 0 0 30px;
+  text-align: center;
+  line-height: 70px;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+.name-char {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.card-count {
+  font-size: 32px;
+  font-weight: bold;
+  display: inline-block;
+  /*animation: flash 1s infinite;*/
+}
+
+@keyframes flash {
+  50% {
+    text-shadow: 3px 3px 0 #33aabb;
+  }
+}
+
+@keyframes vibe {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+
+.playerCard:hover {
+  box-shadow: 4px 4px #444444;
+  border-radius: 5px;
+  transition: 0.9;
+/*  animation: vibe 1s infinite;*/
 }
 
 /* プレイヤー側手札1-4 */
@@ -165,18 +199,26 @@ body {
   }
 
   .status {
-    background: #fff;
+    background: #000;
+    height: 25px;
     width: 210px;
     margin: 320px 0 0 20px;
   }
 
   .opp-status {
-    background: #fff;
+    background: #000;
+    height: 25px;
     width: 210px;
     margin: 30px 0 0 20px;
   }
 
+  .status-detail {
+    line-height: 50px;
+    margin-left: 50px;
+  }
+
   .opp-status-detail {
+    line-height: 50px;
     margin-left: 50px;
   }
 
@@ -266,7 +308,6 @@ body {
  }
 
  .dropArea {
-    border-style: solid;
     cursor: move;
     height: 58px;
     width: 40px;
@@ -280,7 +321,7 @@ body {
  }
 
  .status {
-    background: #fff;
+    background: #000;
     width: 210px;
     margin: 240px 0 0 20px;
  }
@@ -344,7 +385,6 @@ body {
  }
 
  .dropArea {
-    border-style: solid;
     cursor: move;
     height: 58px;
     width: 40px;
@@ -358,9 +398,8 @@ body {
  }
 
  .status {
-    background: #fff;
+    background: #000;
     width: 210px;
     margin:320px 0 0 20px;
  }
 }
-
