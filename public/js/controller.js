@@ -264,7 +264,7 @@ speed.controller('gameController', ['$scope','$routeParams','socket','$interval'
               speedDto = data;
 
               // 台札更新判定
-              if(!speedDto.checkGameResult){
+              if(speedDto.checkGameResult != null && !speedDto.checkGameResult){
             	  // ダイアログを表示
             	  $scope.countdown = "カードを置けません";
             	  $('.alert').modal('show');

@@ -129,6 +129,7 @@ body {
     position:fixed;
 	font-size: xx-large;
 	text-align:center;
+	z-index:999;
 }
 /* レスポンシブルデザイン用定義 */
 @media screen and (max-width:800px) {
