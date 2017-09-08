@@ -9,16 +9,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="css/speed.css" />
   </head>
-<script src="js/app.js"></script>
+  <script src="js/app.js"></script>
   <body ng-app="speed">
     <div ng-controller="gameController">
       <div class="container">
-       <div class="messageErea">
-         <div class="message">{{message}}</div>
-       </div>
         <div class="opp-status">
           <div class="opp-status-detail">
-            {{oppName}} <small>残り</small>{{opprest}}<small>枚</small>
+            <span class="name-char">{{oppName}}</span>
+            残り<span class="card-count">{{opprest}}</span> 枚
           </div>
         </div>
         <div class="opp">
@@ -29,18 +27,19 @@
           <img ng-src="{{oppCard4}}" class="card opp-card-4 opp-card" alt="">
         </div>
         <div class = "field">
-			 <div class="dropArea Area-1" id="area1"><img ng-src="{{fieldCard1}}" class="card" alt=""></div>
-			 <div class="dropArea Area-2" id="area2"><img ng-src="{{fieldCard2}}" class="card" alt=""></div>
-	    </div>
+          <div class="dropArea Area-1" id="area1"><img ng-src="{{fieldCard1}}" class="card" alt=""></div>
+          <div class="dropArea Area-2" id="area2"><img ng-src="{{fieldCard2}}" class="card" alt=""></div>
+        </div>
         <div class="card-field">
-		  <img ng-src="{{card1}}" class="playerCard card-1" alt="" id = "card-1">
+          <img ng-src="{{card1}}" class="playerCard card-1" alt="" id = "card-1">
           <img ng-src="{{card2}}" class="playerCard card-2" alt="" id = "card-2">
           <img ng-src="{{card3}}" class="playerCard card-3" alt="" id = "card-3">
           <img ng-src="{{card4}}" class="playerCard card-4" alt="" id = "card-4">
-		</div>
+        </div>
         <div class="status">
           <div class="status-detail">
-            {{playerName}}<small>残り</small>{{rest}}<small>枚</small>
+            <span class="name-char">{{playerName}}</span>
+            残り<span class="card-count">{{rest}}</span> 枚
           </div>
         </div>
         <div class="modal fade" id="winnerModal">
@@ -65,10 +64,8 @@
       </div>
       </div>
       <div class="alert alert-info">
-      	<strong>{{countdown}}</strong>
+        <strong>{{countdown}}</strong>
       </div>
-    <div ng-controller="testController as testController" align="center">
-      <button class="btn-primary btn-lg" id="test" ng-click="testController.test()">テスト</button>
     </div>
   </body>
 </html>
