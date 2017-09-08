@@ -112,6 +112,9 @@ exports.putMain = function(speedDto) {
   speedDto.player1Message = '';
   speedDto.player2Message = '';
 
+  // カード更新判定フラグ
+  speedDto.checkGameResult = true;
+  
   // 排他チェック
   if (!checkExclusion(speedDto)) {
     // チェックエラーの場合speedDtoを返却して処理終了
@@ -145,8 +148,7 @@ exports.putMain = function(speedDto) {
     return getResultDto(speedDto.roomId, INFO_MSG_GAME_END, INFO_MSG_GAME_END);
   }
 
-  // カード更新判定フラグ
-  speedDto.checkGameResult = true;
+
   // プレイヤ双方の台札設定可否
   while (!checkGame(speedDto)) {
     // プレイヤ双方がカードを台札に置くことができない場合
@@ -622,8 +624,8 @@ exports.createSpeedDto = function(roomId,nameList) {
   dto.player2fieldCardList = createFieldCardList(dto.player2cardList, 2);
 
   // 台札1,2の選定
-  dto.daiFuda1 = ['', [selectRandomCard(dto.player1cardList, 1)]];
-  dto.daiFuda2 = ['', [selectRandomCard(dto.player2cardList, 2)]];
+  dto.daiFuda1 = ['1', selectRandomCard(dto.player1cardList, 1)];
+  dto.daiFuda2 = ['2', selectRandomCard(dto.player2cardList, 2)];
 
   // 生成したspeedDtoをマスターDTOに設定
   _master_dto.set(roomId, dto);
