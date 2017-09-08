@@ -5,7 +5,7 @@ creatus@outlook.jp
 sutaerc0000
 
 ■Git
-git clone ssh://59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com/~/git/speed.git/
+git clone ssh://59aa5eb50c1e66400f0000a0@speedgame-creatus.rhcloud.com/~/git/speedgame.git/
 
 ■アプリページ
 http://speedgame-creatus.rhcloud.com/
