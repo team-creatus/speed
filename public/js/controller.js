@@ -236,7 +236,7 @@ speed.controller('gameController', ['$scope','$routeParams','socket','$interval'
             /* 内側にスナップ */
             snapMode: "inner",
             /* スナップする領域の範囲 値が大きいほど遠い位置からスナップする. */
-            snapTolerance: 40,
+            snapTolerance: 50,
             /* ドロップ可能領域ではない場合、元の位置に戻る */
             revert: true,
             /* 元の位置に戻る速度 ミリ秒 */

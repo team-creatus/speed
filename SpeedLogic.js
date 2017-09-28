@@ -427,43 +427,6 @@ function checkGame(speedDto) {
 		}
   }
 
-//  for (var i = 0; i < speedDto.player1fieldCardList.length; i++) {
-//    if (speedDto.player1fieldCardList[i][0] === 0) {
-//      continue;
-//    }
-//    if (Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 1
-//      || Math.abs(speedDto.daiFuda1 - speedDto.player1fieldCardList[i]) === 12) {
-//      return true;
-//    }
-//  }
-//  for (i = 0; i < speedDto.player1fieldCardList.length; i++) {
-//    if (speedDto.player1fieldCardList[i][0] === 0) {
-//      continue;
-//    }
-//    if (Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 1
-//      || Math.abs(speedDto.daiFuda2 - speedDto.player1fieldCardList[i]) === 12) {
-//      return true;
-//    }
-//  }
-//  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
-//    if (speedDto.player2fieldCardList[i][0] === 0) {
-//      continue;
-//    }
-//    if (Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 1
-//      || Math.abs(speedDto.daiFuda1 - speedDto.player2fieldCardList[i]) === 12) {
-//      return true;
-//    }
-//  }
-//  for (i = 0; i < speedDto.player2fieldCardList.length; i++) {
-//    if (speedDto.player2fieldCardList[i][0] === 0) {
-//      continue;
-//    }
-//    if (Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 1
-//      || Math.abs(speedDto.daiFuda2 - speedDto.player2fieldCardList[i]) === 12) {
-//      return true;
-//    }
-//  }
-
   speedDto.player1Message = 'カードが置けないため台札を更新';
   speedDto.player2Message = 'カードが置けないため台札を更新';
   return false;
@@ -606,33 +569,46 @@ exports.createSpeedDto = function(roomId,nameList) {
   dto.player1Name = nameList[0];
   dto.player2Name = nameList[1];
 
-  // カードリストを生成
-  for(var i = 0; i < 2; i ++) {
-    var name = nameList[i];
-    var cardList = cardInit();
+  // 台札にカードが置ける状態になるまでループ
+  while (true) {
 
-    // プレイヤー1,2にカードを設定
-    if (i === 0) {
-      dto.player1cardList = cardList;
-    } else {
-      dto.player2cardList = cardList;
+    // カードリストを生成
+    for(var i = 0; i < 2; i ++) {
+      var name = nameList[i];
+      var cardList = cardInit();
+
+      // プレイヤー1,2にカードを設定
+      if (i === 0) {
+        dto.player1cardList = cardList;
+      } else {
+        dto.player2cardList = cardList;
+      }
     }
+
+    // プレイヤー1,2の場札を選定
+    dto.player1fieldCardList = createFieldCardList(dto.player1cardList, 1);
+    dto.player2fieldCardList = createFieldCardList(dto.player2cardList, 2);
+
+    // 台札1,2の選定
+    dto.daiFuda1 = ['1', selectRandomCard(dto.player1cardList, 1)];
+    dto.daiFuda2 = ['2', selectRandomCard(dto.player2cardList, 2)];
+
+    // 生成したspeedDtoをマスターDTOに設定
+    _master_dto.set(roomId, dto);
+    console.log('#################### MASTER DTO ####################');
+    console.log(dto);
+    console.log('#################### MASTER DTO ####################');
+
+    // 台札にカードが置けるかをチェック
+    if (checkGame(dto)) {
+      console.log('checkGame:true');
+      return dto;
+    }
+
+    console.log('checkGame:false');
+    speedDto.player1Message = '';
+    speedDto.player2Message = '';
   }
-
-  // プレイヤー1,2の場札を選定
-  dto.player1fieldCardList = createFieldCardList(dto.player1cardList, 1);
-  dto.player2fieldCardList = createFieldCardList(dto.player2cardList, 2);
-
-  // 台札1,2の選定
-  dto.daiFuda1 = ['1', selectRandomCard(dto.player1cardList, 1)];
-  dto.daiFuda2 = ['2', selectRandomCard(dto.player2cardList, 2)];
-
-  // 生成したspeedDtoをマスターDTOに設定
-  _master_dto.set(roomId, dto);
-  console.log('#################### MASTER DTO ####################');
-  console.log(dto);
-  console.log('#################### MASTER DTO ####################');
-  return dto;
 };
 
 /*
