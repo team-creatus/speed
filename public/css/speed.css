@@ -1,13 +1,13 @@
-/* 背景色 */
+/* 閭梧勹濶ｲ */
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic);
 body {
   background-image: url('../img/green_velvet_bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Avenir Next" , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+  font-family: "Avenir Next" , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "貂ｸ繧ｴ繧ｷ繝�繧ｯ" , "Yu Gothic" , "貂ｸ繧ｴ繧ｷ繝�繧ｯ菴�" , "YuGothic" , "繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "繝｡繧､繝ｪ繧ｪ" , Meiryo , "�ｼｭ�ｼｳ �ｼｰ繧ｴ繧ｷ繝�繧ｯ" , "MS PGothic" , sans-serif;
 }
 
-/* 場札エリア */
+/* 蝣ｴ譛ｭ繧ｨ繝ｪ繧｢ */
 .field {
   border: none;
   height: 109px;
@@ -17,7 +17,7 @@ body {
   position: rerative;
 }
 
-/* プレイヤーカードエリア */
+/* 繝励Ξ繧､繝､繝ｼ繧ｫ繝ｼ繝峨お繝ｪ繧｢ */
 .card-field {
   height: 108px;
   width: 50%;
@@ -25,49 +25,49 @@ body {
   position: rerative;
 }
 
-/* プレイヤーカード */
+/* 繝励Ξ繧､繝､繝ｼ繧ｫ繝ｼ繝� */
 .playerCard {
   cursor: move;
   height: 108px;
   width: 72px;
 }
 
-/* 対戦相手カード */
+/* 蟇ｾ謌ｦ逶ｸ謇九き繝ｼ繝� */
 .card {
   cursor: move;
   height: 108px;
   width: 72px;
 }
 
-/* 場札 */
+/* 蝣ｴ譛ｭ */
 .dropArea{
   cursor: move;
   height: 108px;
   width: 72px;
 }
 
-/* 場札1 */
+/* 蝣ｴ譛ｭ1 */
 .Area-1 { position: rerative; left: 0px; top: 0px; float: left;}
-/* 場札2 */
+/* 蝣ｴ譛ｭ2 */
 .Area-2 { position: rerative; left: 0px; top: 0px; float: right;}
 
-/* 不要？ */
+/* 荳崎ｦ�ｼ� */
 .droped {
   height: 108px;
   width: 72px;
 }
 
-/* 不要？ */
+/* 荳崎ｦ�ｼ� */
 .dragging {
   opacity: 0.4;
 }
 
-/* 対戦相手カード */
+/* 蟇ｾ謌ｦ逶ｸ謇九き繝ｼ繝� */
 .opp-card {
   margin-top: 40px;
 }
 
-/* プレイヤーステータスエリア */
+/* 繝励Ξ繧､繝､繝ｼ繧ｹ繝�繝ｼ繧ｿ繧ｹ繧ｨ繝ｪ繧｢ */
 .status {
   color: #920;
   display: inline-block;
@@ -80,7 +80,7 @@ body {
   opacity: 0.9;
 }
 
-/* 対戦相手ステータスエリア */
+/* 蟇ｾ謌ｦ逶ｸ謇九せ繝�繝ｼ繧ｿ繧ｹ繧ｨ繝ｪ繧｢ */
 .opp-status {
   color: #a30;
   border-radius: 10px;
@@ -93,7 +93,7 @@ body {
   opacity: 0.9;
 }
 
-/* プレイヤーステータス */
+/* 繝励Ξ繧､繝､繝ｼ繧ｹ繝�繝ｼ繧ｿ繧ｹ */
 .status-detail {
   text-align: center;
   line-height: 70px;
@@ -101,7 +101,7 @@ body {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-/* 対戦相手ステータス */
+/* 蟇ｾ謌ｦ逶ｸ謇九せ繝�繝ｼ繧ｿ繧ｹ */
 .opp-status-detail {
   text-align: center;
   line-height: 70px;
@@ -141,23 +141,23 @@ body {
 /*  animation: vibe 1s infinite;*/
 }
 
-/* プレイヤー側手札1-4 */
+/* 繝励Ξ繧､繝､繝ｼ蛛ｴ謇区惆1-4 */
 .card-1 { position: rerative; left: 0%;}
 .card-2 { position: rerative; left: 1%; }
 .card-3 { position: rerative; left: 2%; }
 .card-4 { position: rerative; left: 3%; }
 
-/* 対戦相手側手札1-4 */
+/* 蟇ｾ謌ｦ逶ｸ謇句�ｴ謇区惆1-4 */
 .opp-card-1 { position: rerative; left: 0%; }
 .opp-card-2 { position: rerative; left: 1%; }
 .opp-card-3 { position: rerative; left: 2%; }
 .opp-card-4 { position: rerative; left: 3%; }
 
-/* メッセージ */
+/* 繝｡繝�繧ｻ繝ｼ繧ｸ */
 .alert {
-    display: none; /* 初期状態は非表示 */
+    display: none; /* 蛻晄悄迥ｶ諷九�ｯ髱櫁｡ｨ遉ｺ */
     width: 200px;
-    /* 画面上部に表示 */
+    /* 逕ｻ髱｢荳企Κ縺ｫ陦ｨ遉ｺ */
     top: 50%;
     left: 12%;
     position:fixed;
@@ -165,7 +165,7 @@ body {
 	text-align:center;
 	z-index:999;
 }
-/* レスポンシブルデザイン用定義 */
+/* 繝ｬ繧ｹ繝昴Φ繧ｷ繝悶Ν繝�繧ｶ繧､繝ｳ逕ｨ螳夂ｾｩ */
 @media screen and (max-width:800px) {
 
   .field {
@@ -333,9 +333,21 @@ body {
   .field {
     border: none;
     height: 18px;
-    width: 120px;
-    margin: 125px 0 0 50px;
+    width: 140px;
+    margin: 125px 0 0 85px;
     position: absolute;
+  }
+  .card {
+    cursor: move;
+    height: 60px;
+    width: 65px;
+    position: absolute;
+  }
+  .opp-status {
+    background: #000;
+    height: 25px;
+    width: 220px;
+    margin: 30px 0 0 10px;
   }
 
  .card-field {
@@ -347,60 +359,60 @@ body {
 
  .card-1 {
     position: relative;
-    left: 0px;
+    left: -20px;
  }
 
  .card-2 {
     position: relative;
-    left: 50px;
+    left: 55px;
  }
 
  .card-3 {
     position: relative;
-    left: 100px;
+    left: 130px;
  }
 
  .card-4 {
     position: relative;
-    left: 150px;
+    left: 205px;
  }
 
  .opp-card-1 {
 	position: absolute;
-    left: 45px;
+    left: 25px;
  }
 
  .opp-card-2 {
     position: absolute;
-    left: 95px;
+    left: 100px;
  }
 
  .opp-card-3 {
     position: absolute;
-    left: 145px;
+    left: 175px;
  }
 
  .opp-card-4 {
     position: absolute;
-    left: 195px;
+    left: 250px;
  }
 
  .dropArea {
     cursor: move;
-    height: 58px;
-    width: 40px;
+    height: 60px;
+    width: 65px;
  }
 
  .playerCard {
     cursor: move;
-    height: 58px;
-    width: 40px;
+    height: 60px;
+    width: 65px;
     position: absolute !important;
  }
 
  .status {
     background: #000;
-    width: 210px;
-    margin:320px 0 0 20px;
+    width: 220px;
+    margin:320px 0 0 10px;
  }
 }
