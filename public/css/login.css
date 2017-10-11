@@ -1,0 +1,31 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic);
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,600");
+@import url(https://fonts.googleapis.com/earlyaccess/mplus1p.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css);
+body, html, h1 {
+  font-family: "Raleway" , "Noto Sans JP", "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+
+  font-weight: 100;
+}
+
+@media screen and (max-width: 605px) {
+  html, body, h1, input {
+    font-size: 1.2rem;
+  }
+
+  #login {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  html, body, h1, input {
+    font-size: 0.9rem;
+  }
+
+  #login {
+    font-size: 0.8rem;
+  }
+}
+
