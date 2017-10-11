@@ -400,6 +400,8 @@ speed.controller('testController', ['$location','$scope', 'socket', function($lo
 	    		  $('#loserModal').modal("show");
 	    	  }
 	      }
+      }else if((speedDto.player1Message == "引き分け")){
+    	  $('#drawModal').modal("show");
       }
       // 勝敗判定
       if(speedDto.player1ResultCode == "2" || speedDto.player2ResultCode == "2"){
