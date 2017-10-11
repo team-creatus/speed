@@ -1,180 +1,418 @@
-/* 背景色 */
+/* 閭梧勹濶ｲ */
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic);
-@import url("https://fonts.googleapis.com/css?family=Raleway:100,600");
-@import url(https://fonts.googleapis.com/earlyaccess/mplus1p.css);
-@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
-@import url(https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css);
-
 body {
-  background-color: #45ab56;
+  background-image: url('../img/green_velvet_bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Raleway" , "Noto Sans JP", "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
-  font-weight: 100;
-  font-size: 1.2rem;
+  font-family: "Avenir Next" , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
 }
 
-html, input ,h1 {
-  font-family: "Raleway" , "Noto Sans JP" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
-
-  font-weight: 100;
-  font-size: 1.2rem;
-}
-
-.opp, .card-field {
-  text-align: center;
-  line-height: 200px;
-  height: 200px;
-}
-
-/* 場札エリア */
-/* プレイヤーカード */
-.playerCard {
-  height: 130px;
-  width: 82px;
-  cursor: move;
-}
-
-/* 対戦相手カード */
-.card {
-  height: 130px;
-  width: 82px;
-}
-
+/* 蝣ｴ譛ｭ繧ｨ繝ｪ繧｢ */
 .field {
+  border: none;
+  height: 109px;
+  width: 190px;
+  margin:2% 0 0 6%;
+  //margin-top: 30px;
+  position: rerative;
+}
+
+/* 繝励Ξ繧､繝､繝ｼ繧ｫ繝ｼ繝峨お繝ｪ繧｢ */
+.card-field {
+  height: 108px;
+  width: 50%;
+  margin: 2% 0 0 0%;
+  position: rerative;
+}
+
+/* 繝励Ξ繧､繝､繝ｼ繧ｫ繝ｼ繝� */
+.playerCard {
   cursor: move;
-  margin: 0 auto;
-  line-height: 130px;
-  height: 130px;
-  width: 200px;
+  height: 108px;
+  width: 72px;
 }
 
-/* 場札1 */
-.Area-1 {
-  float: left;
+/* 蟇ｾ謌ｦ逶ｸ謇九き繝ｼ繝� */
+.card {
+  cursor: move;
+  height: 108px;
+  width: 72px;
 }
 
-/* 場札2 */
-.Area-2 {
-  float: right;
+/* 蝣ｴ譛ｭ */
+.dropArea{
+  cursor: move;
+  height: 108px;
+  width: 72px;
 }
 
-/* ステータスエリア */
-.status, .opp-status {
-  color: #fff;
+/* 蝣ｴ譛ｭ1 */
+.Area-1 { position: rerative; left: 0px; top: 0px; float: left;}
+/* 蝣ｴ譛ｭ2 */
+.Area-2 { position: rerative; left: 0px; top: 0px; float: right;}
+
+/* 荳崎ｦ�ｼ� */
+.droped {
+  height: 108px;
+  width: 72px;
+}
+
+/* 荳崎ｦ�ｼ� */
+.dragging {
+  opacity: 0.4;
+}
+
+/* 蟇ｾ謌ｦ逶ｸ謇九き繝ｼ繝� */
+.opp-card {
+  margin-top: 40px;
+}
+
+/* 繝励Ξ繧､繝､繝ｼ繧ｹ繝�繝ｼ繧ｿ繧ｹ繧ｨ繝ｪ繧｢ */
+.status {
+  color: #920;
+  display: inline-block;
+  background: #fa0;
+  height: 70px;
+  width: 400px;
+  text-decoration: none;
+  border-bottom: solid 4px #e80;
+  border-radius: 10px;margin: 4% 0 0 -4%;
+  opacity: 0.9;
+}
+
+/* 蟇ｾ謌ｦ逶ｸ謇九せ繝�繝ｼ繧ｿ繧ｹ繧ｨ繝ｪ繧｢ */
+.opp-status {
+  color: #a30;
+  border-radius: 10px;
+  background: #fa0;
+  height: 70px;
+  width: 400px;
+  text-decoration: none;
+  border-bottom: solid 4px #e80;
+  border-radius: 10px;margin: 4% 0 0 -4%;
+  opacity: 0.9;
+}
+
+/* 繝励Ξ繧､繝､繝ｼ繧ｹ繝�繝ｼ繧ｿ繧ｹ */
+.status-detail {
   text-align: center;
-  width: 100%;
-  height: 150px;
-  line-height: 150px;
-  font-size: 1rem;
+  line-height: 70px;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
+/* 蟇ｾ謌ｦ逶ｸ謇九せ繝�繝ｼ繧ｿ繧ｹ */
+.opp-status-detail {
+  text-align: center;
+  line-height: 70px;
+  font-size: 18px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
 .name-char {
-  font-size: 2rem;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .card-count {
-  font-size: 2rem;
+  font-size: 32px;
+  font-weight: bold;
   display: inline-block;
+  /*animation: flash 1s infinite;*/
 }
 
-/* メッセージ */
+@keyframes flash {
+  50% {
+    text-shadow: 3px 3px 0 #33aabb;
+  }
+}
+
+@keyframes vibe {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+
+.playerCard:hover {
+  box-shadow: 4px 4px #444444;
+  border-radius: 5px;
+  transition: 0.9;
+/*  animation: vibe 1s infinite;*/
+}
+
+/* 繝励Ξ繧､繝､繝ｼ蛛ｴ謇区惆1-4 */
+.card-1 { position: rerative; left: 0%;}
+.card-2 { position: rerative; left: 1%; }
+.card-3 { position: rerative; left: 2%; }
+.card-4 { position: rerative; left: 3%; }
+
+/* 蟇ｾ謌ｦ逶ｸ謇句�ｴ謇区惆1-4 */
+.opp-card-1 { position: rerative; left: 0%; }
+.opp-card-2 { position: rerative; left: 1%; }
+.opp-card-3 { position: rerative; left: 2%; }
+.opp-card-4 { position: rerative; left: 3%; }
+
+/* 繝｡繝�繧ｻ繝ｼ繧ｸ */
 .alert {
-  display: none;
-  z-index: 999;
-  width: 400px;
-  position: relative;
-  margin: 0 auto;
-  text-align: center;
-  top: -500px;
-  font-size: 2rem;
-  white-space: nowrap;
-}
-
-@media screen and (max-width: 479px) {
-
-  body {
-    background-color: #45ab56;
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: "Raleway" , "Noto Sans JP", "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
-    font-weight: 100;
-    font-size: 0.8rem;
-  }
-
-  html, input {
-    font-family: "Raleway" , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
-
-    font-weight: 100;
-    font-size: 0.8rem;
-  }
-
-  .opp, .card-field {
-    line-height: 100px;
-    height: 100px;
+    display: none; /* 蛻晄悄迥ｶ諷九�ｯ髱櫁｡ｨ遉ｺ */
     width: 200px;
-    margin: 0 auto;
-  }
-
-  /* プレイヤーカード */
-  .playerCard {
-    line-height: 85px;
-    height: 85px;
-    width: 47px;
-    cursor: move;
-  }
-
-  /* 対戦相手カード */
-  .card {
-    line-height: 85px;
-    height: 85px;
-    width: 47px;
-  }
+    /* 逕ｻ髱｢荳企Κ縺ｫ陦ｨ遉ｺ */
+    top: 50%;
+    left: 12%;
+    position:fixed;
+	font-size: xx-large;
+	text-align:center;
+	z-index:999;
+}
+/* 繝ｬ繧ｹ繝昴Φ繧ｷ繝悶Ν繝�繧ｶ繧､繝ｳ逕ｨ螳夂ｾｩ */
+@media screen and (max-width:800px) {
 
   .field {
-    margin: 0 auto;
-    height:100px;
-    line-height:100px;
-    width: 150px;
+    height: 63px;
+    width: 46px;
+    margin: 125px 0 0 150px;
+    position: absolute;
   }
 
-  /* 場札1 */
-  .Area-1 {
-    float: left;
+  .card-field {
+    height: 58px;
+    width: 190px;
+    margin: 230px 0 0 30px;
+    position: absolute;
   }
 
-  /* 場札2 */
-  .Area-2 {
-    float: right;
+  .card {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+    position: absolute;
   }
 
-  /* ステータスエリア */
-  .status, .opp-status {
-    color: #fff;
-    margin: 0 auto;
-    line-height: 100px;
-    height: 100px;
-    width: 200px;
+  .opp-card {
+    margin-top: 30px;
   }
 
-  .name-char {
-    font-size: 2rem;
+  .droped {
+    height: 58px;
+    width: 40px;
+    position: absolute;
   }
 
-  .card-count {
-    font-size: 2rem;
-    display: inline-block;
+  .status {
+    background: #000;
+    height: 25px;
+    width: 210px;
+    margin: 320px 0 0 20px;
   }
 
-  /* メッセージ */
-  .alert {
-    z-index: 999;
-    width: 200px;
+  .opp-status {
+    background: #000;
+    height: 25px;
+    width: 210px;
+    margin: 30px 0 0 20px;
+  }
+
+  .status-detail {
+    line-height: 50px;
+    margin-left: 50px;
+  }
+
+  .opp-status-detail {
+    line-height: 50px;
+    margin-left: 50px;
+  }
+
+  .card-1 { position: absolute; left: 40px;}
+  .card-2 { position: absolute; left: 90px; }
+  .card-3 { position: absolute; left: 140px; }
+  .card-4 { position: absolute; left: 190px; }
+
+  .card-0 { position: absolute; left: 0px;}
+
+  .opp-card-0 { position: absolute; left: 70px; margin-top: 130px; }
+  .opp-card-1 { position: absolute; left: 45px; }
+  .opp-card-2 { position: absolute; left: 95px; }
+  .opp-card-3 { position: absolute; left: 145px; }
+  .opp-card-4 { position: absolute; left: 195px; }
+
+}
+
+
+
+@media screen and (max-width: 799px){
+
+  .field {
+    border: none;
+    height: 18px;
+    width: 120px;
+    margin: 45px 0 0 50px;
+    position: absolute;
+  }
+
+  .card-field {
+    height: 10px;
+    width: 10px;
+    margin: 150px 0px 0px 30px;
+    position: absolute;
+ }
+
+ .card-1 {
+    position: absolute;
+    left: 0px;
+ }
+
+.card-2 {
+    position: absolute;
+    left: 50px;
+ }
+
+
+
+ .card-3 {
+    position: absolute;
+    left: 100px;
+ }
+
+
+ .card-4 {
+    position: absolute;
+    left: 150px;
+ }
+
+ .opp {
+   margin-left:30px;
+ }
+
+.opp-card {
+    margin-top: 30px;
+ }
+
+ .opp-card-1 {
     position: relative;
-    margin: 0 auto;
-    text-align: center;
-    top: -280px;
-    font-size: 1.5rem;
-    white-space: nowrap;
+    left: 0%;
+ }
+
+ .opp-card-2 {
+    position: relative;
+    left: 1%;
+ }
+
+ .opp-card-3 {
+    position: relative;
+    left: 2%;
+ }
+
+ .opp-card-4 {
+    position: relative;
+    left: 3%;
+ }
+
+ .dropArea {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+ }
+
+ .playerCard {
+    cursor: move;
+    height: 58px;
+    width: 40px;
+    position: absolute !important;
+ }
+
+ .status {
+    background: #000;
+    width: 210px;
+    margin: 240px 0 0 20px;
+ }
+}
+
+@media screen and (max-width: 767px){
+
+  .field {
+    border: none;
+    height: 18px;
+    width: 140px;
+    margin: 125px 0 0 85px;
+    position: absolute;
   }
+  .card {
+    cursor: move;
+    height: 60px;
+    width: 65px;
+    position: absolute;
+  }
+  .opp-status {
+    background: #000;
+    height: 25px;
+    width: 220px;
+    margin: 30px 0 0 10px;
+  }
+
+ .card-field {
+    height: 10px;
+    width: 10px;
+    margin: 230px 0 0 30px;
+    position: absolute;
+ }
+
+ .card-1 {
+    position: relative;
+    left: -20px;
+ }
+
+ .card-2 {
+    position: relative;
+    left: 55px;
+ }
+
+ .card-3 {
+    position: relative;
+    left: 130px;
+ }
+
+ .card-4 {
+    position: relative;
+    left: 205px;
+ }
+
+ .opp-card-1 {
+	position: absolute;
+    left: 25px;
+ }
+
+ .opp-card-2 {
+    position: absolute;
+    left: 100px;
+ }
+
+ .opp-card-3 {
+    position: absolute;
+    left: 175px;
+ }
+
+ .opp-card-4 {
+    position: absolute;
+    left: 250px;
+ }
+
+ .dropArea {
+    cursor: move;
+    height: 60px;
+    width: 65px;
+ }
+
+ .playerCard {
+    cursor: move;
+    height: 60px;
+    width: 65px;
+    position: absolute !important;
+ }
+
+ .status {
+    background: #000;
+    width: 220px;
+    margin:320px 0 0 10px;
+ }
 }

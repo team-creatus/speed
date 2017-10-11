@@ -1,73 +1,94 @@
 <!DOCTYPE HTML>
 <html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <!-- IE対応 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>card game sample</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="css/speed.css" />
-  </head>
-  <script src="js/app.js"></script>
-  <body ng-app="speed">
-    <div ng-controller="gameController">
-      <div class="container">
-        <div class="opp-status">
-          <span class="name-char">{{oppName}}</span> 残り<span class="card-count">{{opprest}}</span> 枚
-        </div>
-        <div class="opp">
-          <!--  <img ng-src="{{oppCard0}}" class="card opp-card-0" alt="">-->
-          <img ng-src="{{oppCard1}}" class="card opp-card-1 opp-card" alt="">
-          <img ng-src="{{oppCard2}}" class="card opp-card-2 opp-card" alt="">
-          <img ng-src="{{oppCard3}}" class="card opp-card-3 opp-card" alt="">
-          <img ng-src="{{oppCard4}}" class="card opp-card-4 opp-card" alt="">
-        </div>
-        <div class="field">
-          <div class="dropArea Area-1" id="area1">
-            <img ng-src="{{fieldCard1}}" class="card" alt="">
-          </div>
-          <div class="dropArea Area-2" id="area2">
-            <img ng-src="{{fieldCard2}}" class="card" alt="">
-          </div>
-        </div>
-        <div class="card-field">
-          <img ng-src="{{card1}}" class="playerCard card-1" alt="" id="card-1">
-          <img ng-src="{{card2}}" class="playerCard card-2" alt="" id="card-2">
-          <img ng-src="{{card3}}" class="playerCard card-3" alt="" id="card-3">
-          <img ng-src="{{card4}}" class="playerCard card-4" alt="" id="card-4">
-        </div>
-        <div class="status">
-            <span class="name-char">{{playerName}}</span> 残り<span class="card-count">{{rest}}</span> 枚
-        </div>
-        <div class="modal fade" id="winnerModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h1 class="modal-title">あなたの勝ちです</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="loserModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h1 class="modal-title">あなたの負けです</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="alert alert-info">{{countdown}}</div>
-      </div>
-    </div>
-  </body>
+<head>
+<meta charset="utf-8">
+<!-- IE対応 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>card game sample</title>
+<script src="/socket.io/socket.io.js"></script>
+<link rel="stylesheet" href="css/speed.css" />
+</head>
+<script src="js/app.js"></script>
+<body ng-app="speed">
+	<div ng-controller="gameController">
+		<div class="container">
+			<div class="opp-status">
+				<div class="opp-status-detail">
+					<span class="name-char">{{oppName}}</span> 残り<span
+						class="card-count">{{opprest}}</span> 枚
+				</div>
+			</div>
+			<div class="opp">
+				<!--  <img ng-src="{{oppCard0}}" class="card opp-card-0" alt="">-->
+				<img ng-src="{{oppCard1}}" class="card opp-card-1 opp-card" alt="">
+				<img ng-src="{{oppCard2}}" class="card opp-card-2 opp-card" alt="">
+				<img ng-src="{{oppCard3}}" class="card opp-card-3 opp-card" alt="">
+				<img ng-src="{{oppCard4}}" class="card opp-card-4 opp-card" alt="">
+			</div>
+			<div class="field">
+				<div class="dropArea Area-1" id="area1">
+					<img ng-src="{{fieldCard1}}" class="card" alt="">
+				</div>
+				<div class="dropArea Area-2" id="area2">
+					<img ng-src="{{fieldCard2}}" class="card" alt="">
+				</div>
+			</div>
+			<div class="card-field">
+				<img ng-src="{{card1}}" class="playerCard card-1" alt="" id="card-1">
+				<img ng-src="{{card2}}" class="playerCard card-2" alt="" id="card-2">
+				<img ng-src="{{card3}}" class="playerCard card-3" alt="" id="card-3">
+				<img ng-src="{{card4}}" class="playerCard card-4" alt="" id="card-4">
+			</div>
+			<div class="status">
+				<div class="status-detail">
+					<span class="name-char">{{playerName}}</span> 残り<span
+						class="card-count">{{rest}}</span> 枚
+				</div>
+			</div>
+			<div class="modal fade" id="winnerModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h1 class="modal-title">あなたの勝ちです</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="loserModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h1 class="modal-title">あなたの負けです</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="drawModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h1 class="modal-title">引き分けです</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="alert alert-info">
+			<strong>{{countdown}}</strong>
+		</div>
+	</div>
+</body>
 </html>
