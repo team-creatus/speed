@@ -593,6 +593,12 @@ exports.createSpeedDto = function(roomId,nameList) {
     dto.daiFuda1 = ['1', selectRandomCard(dto.player1cardList, 1)];
     dto.daiFuda2 = ['2', selectRandomCard(dto.player2cardList, 2)];
 
+    for (var i = 0; i < 15; i++) {
+      dto.player1cardList.shift();
+    }
+    for (var i = 0; i < 15; i++) {
+      dto.player2cardList.shift();
+    }
     // 生成したspeedDtoをマスターDTOに設定
     _master_dto.set(roomId, dto);
     console.log('#################### MASTER DTO ####################');
