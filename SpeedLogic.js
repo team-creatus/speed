@@ -495,8 +495,6 @@ function updateLeadCard(speedDto) {
     }
   }
 
-
-  /*
   // 両プレイヤーの場札がなくなった場合
   if (countCard(speedDto.player1fieldCardList) === 0
     && countCard(speedDto.player2fieldCardList) === 0) {
@@ -531,7 +529,6 @@ function updateLeadCard(speedDto) {
 
     return false;
   }
-  */
 
   // マスターDTOに設定
   setMasterDto(speedDto.roomId, speedDto);
